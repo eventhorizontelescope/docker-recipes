@@ -37,5 +37,10 @@ RUN wget ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    --prefix=$PWD &&\
 	make && make install
 
-# Default root directory
-WORKDIR /root
+# `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
+RUN useradd -ms /bin/bash calibrator &&\
+	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
+  . /usr/local/hops/bin/hops.bash;\n\
+fi\n' >> /home/calibrator/.bashrc
+WORKDIR /home/calibrator
+USER calibrator

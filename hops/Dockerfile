@@ -3,7 +3,7 @@ FROM debian:jessie-slim
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
-	wget pkg-config make ghostscript \
+	wget pkg-config make ghostscript bc \
 	gcc gfortran python-setuptools \
 	libx11-dev libpng-dev libfftw3-dev && \
 	ln -s /usr/bin/f77 /usr/bin/g77; \
@@ -35,7 +35,10 @@ RUN wget ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    HOPS_ROOT=/root \
 	    PGPLOT_DIR=/usr/local/pgplot \
 	    --prefix=$PWD &&\
-	make && make install
+	make && make install &&\
+	# because of how the test data is stored, `make check` must be
+	# run after `make install`
+	make check
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
 RUN useradd -ms /bin/bash calibrator &&\

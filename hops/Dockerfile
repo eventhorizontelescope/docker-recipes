@@ -3,7 +3,7 @@ FROM debian:jessie-slim
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
-	wget pkg-config make ghostscript bc \
+	wget pkg-config make ghostscript bc less csh \
 	gcc gfortran python-setuptools \
 	libx11-dev libpng-dev libfftw3-dev && \
 	ln -s /usr/bin/f77 /usr/bin/g77; \

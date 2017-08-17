@@ -5,7 +5,7 @@ FROM debian:jessie-slim
 RUN apt-get update && apt-get install -y \
 	    wget pkg-config make ghostscript bc less csh \
 	    gcc gfortran python-setuptools \
-	    libx11-dev libpng-dev libfftw3-dev &&\
+	    libx11-dev libpng12-dev libfftw3-dev &&\
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	useradd -ms /bin/bash calibrator &&\

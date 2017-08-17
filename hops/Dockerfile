@@ -9,41 +9,37 @@ RUN apt-get update && apt-get install -y \
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	useradd -ms /bin/bash calibrator &&\
-	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
-  . /usr/local/hops/bin/hops.bash;\n\
+	printf 'if [ -f /usr/local/bin/hops.bash ]; then\n\
+  . /usr/local/bin/hops.bash;\n\
 fi\n' >> /home/calibrator/.bashrc
 
 # Build pgplot
-WORKDIR /usr/local/pgplot
+WORKDIR /usr/local/src/pgplot/build
 RUN wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 	    -P /usr/local/src &&\
 	tar -zxf /usr/local/src/pgplot5.2.tar.gz \
-	    -C /usr/local/src &&\
+	    -C /usr/local/src/pgplot --strip-components=1 &&\
 	sed -e's/! PN/  PN/g' \
 	    -e's/! PS/  PS/g' \
 	    -e's/! TTDRIV 5/  TTDRIV 5/g' \
 	    -e's/! XW/  XW/g' \
-	    /usr/local/src/pgplot/drivers.list > drivers.list &&\
-	/usr/local/src/pgplot/makemake /usr/local/src/pgplot linux g77_gcc &&\
+	    ../drivers.list > drivers.list &&\
+	../makemake .. linux g77_gcc &&\
 	ln -s /usr/include/png.h /usr/include/pngconf.h \
 	    /usr/include/zlib.h /usr/include/x86_64-linux-gnu/zconf.h . &&\
 	make && make cpg
 
 # Build HOPS
-WORKDIR /usr/local/hops
+WORKDIR /usr/local/src/hops/build
 RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    -P /usr/local/src &&\
-	mkdir -p /usr/local/src/hops &&\
 	tar -zxf /usr/local/src/hops-3.16-1897.tar.gz \
 	    -C /usr/local/src/hops --strip-components=1 &&\
-	/usr/local/src/hops/configure \
+	../configure \
 	    HOPS_ROOT=/home/calibrator \
-	    PGPLOT_DIR=/usr/local/pgplot \
-	    --prefix=$PWD &&\
-	make && make install &&\
-	# because of how the test data is stored, `make check` must be
-	# run after `make install`
-	make check
+	    PGPLOT_DIR=/usr/local/src/pgplot/build \
+	    --prefix=/usr/local &&\
+	make && make check && make install
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
 WORKDIR /home/calibrator

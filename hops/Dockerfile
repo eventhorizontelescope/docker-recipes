@@ -15,9 +15,9 @@ fi\n' >> /home/calibrator/.bashrc
 
 # Build pgplot
 WORKDIR /usr/local/pgplot
-RUN wget ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
+RUN wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 	    -P /usr/local/src &&\
-	tar -vzxf /usr/local/src/pgplot5.2.tar.gz \
+	tar -zxf /usr/local/src/pgplot5.2.tar.gz \
 	    -C /usr/local/src &&\
 	sed -e's/! PN/  PN/g' \
 	    -e's/! PS/  PS/g' \
@@ -31,10 +31,10 @@ RUN wget ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 
 # Build HOPS
 WORKDIR /usr/local/hops
-RUN wget ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
+RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    -P /usr/local/src &&\
 	mkdir -p /usr/local/src/hops &&\
-	tar -vzxf /usr/local/src/hops-3.16-1897.tar.gz \
+	tar -zxf /usr/local/src/hops-3.16-1897.tar.gz \
 	    -C /usr/local/src/hops --strip-components=1 &&\
 	/usr/local/src/hops/configure \
 	    HOPS_ROOT=/home/calibrator \

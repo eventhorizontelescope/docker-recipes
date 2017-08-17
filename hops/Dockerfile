@@ -1,5 +1,5 @@
 # Use jessie because of libpng12
-FROM debian:jessie-slim
+FROM debian:jessie-slim AS builder
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
@@ -7,11 +7,7 @@ RUN apt-get update && apt-get install -y \
 	    gcc gfortran python-setuptools \
 	    libx11-dev libpng12-dev libfftw3-dev &&\
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
-	rm -rf /var/lib/apt/lists/* &&\
-	useradd -ms /bin/bash calibrator &&\
-	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
-  . /usr/local/hops/bin/hops.bash;\n\
-fi\n' >> /home/calibrator/.bashrc
+	rm -rf /var/lib/apt/lists/*
 
 # Build pgplot
 WORKDIR /usr/local/src/pgplot/build
@@ -44,6 +40,28 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    --prefix=/usr/local/hops &&\
 	make && make check && make install
 
+#==============================================================================
+# Use jessie because of libpng12
+FROM debian:jessie-slim
+
+# Setup runtime environment
+RUN apt-get update && apt-get install -y \
+	    ghostscript less csh \
+	    libx11-6 libpng12-0 libfftw3-double3 &&\
+	rm -rf /var/lib/apt/lists/*
+COPY --from=builder \
+	    /usr/lib/x86_64-linux-gnu/libgfortran.so.3* \
+	    /usr/lib/x86_64-linux-gnu/libquadmath.so.0* \
+	    /usr/lib/x86_64-linux-gnu/
+
+# Copy pgplot and HOPS from the builder image
+COPY --from=builder /usr/local/pgplot /usr/local/pgplot
+COPY --from=builder /usr/local/hops   /usr/local/hops
+
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
+RUN useradd -ms /bin/bash calibrator &&\
+	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
+  . /usr/local/hops/bin/hops.bash;\n\
+fi\n' >> /home/calibrator/.bashrc
 WORKDIR /home/calibrator
 USER calibrator

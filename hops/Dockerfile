@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	useradd -ms /bin/bash calibrator &&\
-	printf 'if [ -f /usr/local/bin/hops.bash ]; then\n\
-  . /usr/local/bin/hops.bash;\n\
+	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
+  . /usr/local/hops/bin/hops.bash;\n\
 fi\n' >> /home/calibrator/.bashrc
 
 # Build pgplot
@@ -27,7 +27,10 @@ RUN wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 	../makemake .. linux g77_gcc &&\
 	ln -s /usr/include/png.h /usr/include/pngconf.h \
 	    /usr/include/zlib.h /usr/include/x86_64-linux-gnu/zconf.h . &&\
-	make && make cpg
+	make && make cpg &&\
+	mkdir -p /usr/local/pgplot &&\
+	cp pgxwin_server cpgplot.h libcpgplot.a libpgplot.a libpgplot.so \
+	    grfont.dat rgb.txt /usr/local/pgplot
 
 # Build HOPS
 WORKDIR /usr/local/src/hops/build
@@ -37,8 +40,8 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	    -C /usr/local/src/hops --strip-components=1 &&\
 	../configure \
 	    HOPS_ROOT=/home/calibrator \
-	    PGPLOT_DIR=/usr/local/src/pgplot/build \
-	    --prefix=/usr/local &&\
+	    PGPLOT_DIR=/usr/local/pgplot \
+	    --prefix=/usr/local/hops &&\
 	make && make check && make install
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment

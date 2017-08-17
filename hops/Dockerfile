@@ -21,6 +21,7 @@ RUN wget ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 	    -C /usr/local/src &&\
 	sed -e's/! PN/  PN/g' \
 	    -e's/! PS/  PS/g' \
+	    -e's/! TTDRIV 5/  TTDRIV 5/g' \
 	    -e's/! XW/  XW/g' \
 	    /usr/local/src/pgplot/drivers.list > drivers.list &&\
 	/usr/local/src/pgplot/makemake /usr/local/src/pgplot linux g77_gcc &&\

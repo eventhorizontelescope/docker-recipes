@@ -1,9 +1,12 @@
 # This Dockfiler builds the Haystack Observatory Postprocessing System
 # (HOPS) environment for performing data calibration for the Event
-# Horizon Telescope (EHT)'s April 2017 observations.  Note that,
-# although a Docker image is immutable, building a new image is not,
-# even when the same Dockfile is used.  Hence, the resulting images of
-# `docker build .` may be different at different time.
+# Horizon Telescope (EHT)'s April 2017 observations.
+#
+# NOTE: Although a Docker image is immutable, building a new image is
+# not, even when the same Dockfile is used.  Hence, the resulting
+# images of `docker build .` may be different at different time.
+#
+# TODO: Make X11 work for pgplot and hence HOPS
 #
 #==============================================================================
 # The builder image: use jessie because of libpng12

@@ -1,4 +1,1 @@
-This is a data managing and processing repository for Event Horizon
-Telescope's April 2017 observations.  It uses `hallmark` to ensure
-reproducibility and `yukon` to coordinate and perform multiple data
-analysis pipelines.
+This is a container library for the Event Horizon Telescope.

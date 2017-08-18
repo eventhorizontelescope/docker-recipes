@@ -71,11 +71,12 @@ COPY --from=builder \
 # Copy pgplot and HOPS from the builder image
 COPY --from=builder /usr/local/pgplot /usr/local/pgplot
 COPY --from=builder /usr/local/hops   /usr/local/hops
+RUN printf '\n# all users should source HOPS\n\
+if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
+  . /usr/local/hops/bin/hops.bash;\n\
+fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
-RUN useradd -ms /bin/bash calibrator &&\
-	printf 'if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
-  . /usr/local/hops/bin/hops.bash;\n\
-fi\n' >> /home/calibrator/.bashrc
+RUN useradd -ms /bin/bash calibrator
 WORKDIR /home/calibrator
 USER calibrator

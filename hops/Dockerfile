@@ -59,7 +59,7 @@ FROM debian:jessie-slim
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y \
-		ghostscript less csh \
+		sudo ghostscript less csh \
 		perl-doc python \
 		libx11-6 libpng12-0 libfftw3-double3 &&\
 	rm -rf /var/lib/apt/lists/*
@@ -77,6 +77,6 @@ if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
 fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
-RUN useradd -ms /bin/bash calibrator
+RUN useradd -ms /bin/bash calibrator && echo "calibrator:calibrator" | chpasswd && adduser calibrator sudo
 WORKDIR /home/calibrator
 USER calibrator

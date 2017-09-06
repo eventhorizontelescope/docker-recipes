@@ -14,7 +14,7 @@ FROM debian:jessie-slim AS builder
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
-		wget pkg-config make ghostscript bc \
+		wget pkg-config make ghostscript-x bc \
 		gcc gfortran python-setuptools \
 		libx11-dev libpng12-dev libfftw3-dev &&\
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
@@ -59,7 +59,7 @@ FROM debian:jessie-slim
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y \
-		sudo ghostscript less csh \
+		sudo ghostscript-x less csh \
 		perl-doc python \
 		libx11-6 libpng12-0 libfftw3-double3 &&\
 	rm -rf /var/lib/apt/lists/*

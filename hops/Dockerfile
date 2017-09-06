@@ -9,16 +9,25 @@
 # TODO: Make X11 work for pgplot and hence HOPS
 #
 #==============================================================================
-# The builder image: use jessie because of libpng12
-FROM debian:jessie-slim AS builder
+# The builder image
+FROM debian:stretch-slim AS builder
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
 		wget pkg-config make ghostscript-x bc \
 		gcc gfortran python-setuptools \
-		libx11-dev libpng12-dev libfftw3-dev &&\
+		zlib1g-dev libx11-dev libfftw3-dev &&\
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
 	rm -rf /var/lib/apt/lists/*
+
+# Build libpng12
+WORKDIR /usr/local/src/libpng/build
+RUN wget -q https://download.sourceforge.net/libpng/libpng-1.2.58.tar.gz \
+		-P /usr/local/src &&\
+	tar -zxf /usr/local/src/libpng-1.2.58.tar.gz \
+		-C /usr/local/src/libpng --strip-components=1 &&\
+	../configure --prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu &&\
+	make && make install
 
 # Build pgplot
 WORKDIR /usr/local/src/pgplot/build
@@ -33,12 +42,11 @@ RUN wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 		../drivers.list > drivers.list &&\
 	../makemake .. linux g77_gcc &&\
 	ln -s /usr/include/png.h /usr/include/pngconf.h \
-		/usr/include/zlib.h /usr/include/x86_64-linux-gnu/zconf.h . &&\
+		/usr/include/zlib.h /usr/include/zconf.h . &&\
 	make && make cpg &&\
 	# Effectively `make install`
 	mkdir -p /usr/local/pgplot &&\
-	cp pgxwin_server cpgplot.h libcpgplot.a libpgplot.a libpgplot.so \
-		grfont.dat rgb.txt /usr/local/pgplot
+	cp pgxwin_server cpgplot.h lib* grfont.dat rgb.txt /usr/local/pgplot
 
 # Build HOPS
 WORKDIR /usr/local/src/hops/build
@@ -54,18 +62,19 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	make install
 
 #==============================================================================
-# The HOPS image: use jessie because of libpng12
-FROM debian:jessie-slim
+# The HOPS image
+FROM debian:stretch-slim
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y \
 		sudo ghostscript-x less csh \
 		perl-doc python \
-		libx11-6 libpng12-0 libfftw3-double3 &&\
+		zlib1g libx11-6 libfftw3-double3 &&\
 	rm -rf /var/lib/apt/lists/*
 COPY --from=builder \
-		/usr/lib/x86_64-linux-gnu/libgfortran.so.3* \
-		/usr/lib/x86_64-linux-gnu/libquadmath.so.0* \
+		/usr/lib/x86_64-linux-gnu/libpng12.so*    \
+		/usr/lib/x86_64-linux-gnu/libgfortran.so* \
+		/usr/lib/x86_64-linux-gnu/libquadmath.so* \
 		/usr/lib/x86_64-linux-gnu/
 
 # Copy pgplot and HOPS from the builder image

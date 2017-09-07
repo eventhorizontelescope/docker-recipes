@@ -6,8 +6,6 @@
 # not, even when the same Dockfile is used.  Hence, the resulting
 # images of `docker build .` may be different at different time.
 #
-# TODO: Make X11 work for pgplot and hence HOPS
-#
 #==============================================================================
 # The builder image
 FROM debian:stretch-slim AS builder

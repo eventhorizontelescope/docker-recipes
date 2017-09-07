@@ -67,7 +67,7 @@ FROM debian:stretch-slim
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y \
-		sudo ghostscript-x less csh \
+		sudo ghostscript-x gv less csh \
 		perl-doc python \
 		zlib1g libx11-6 libfftw3-double3 &&\
 	rm -rf /var/lib/apt/lists/*

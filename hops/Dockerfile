@@ -101,6 +101,8 @@ RUN apt-get update && apt-get install -y \
 	rm -rf /var/lib/apt/lists/*
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
-RUN useradd -ms /bin/bash calibrator && echo "calibrator:calibrator" | chpasswd && adduser calibrator sudo
+RUN useradd -ms /bin/bash calibrator &&\
+	echo "calibrator:calibrator" | chpasswd &&\
+	adduser calibrator sudo
 WORKDIR /home/calibrator
 USER calibrator

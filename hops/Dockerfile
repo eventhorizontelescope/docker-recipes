@@ -68,11 +68,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		sudo ghostscript-x gv less csh \
 		perl-doc python \
 		zlib1g libx11-6 libfftw3-double3 &&\
-	rm -rf /var/lib/apt/lists/*
+	rm -rf	/var/lib/apt/lists/* &&\
+	ln -s	/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
+		/usr/lib/x86_64-linux-gnu/libgfortran.so.3   &&\
+	ln -s	/usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0 \
+		/usr/lib/x86_64-linux-gnu/libquadmath.so.0   &&\
+	ln -s	/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0   \
+		/usr/lib/x86_64-linux-gnu/libpng12.so.0
 COPY --from=builder \
-		/usr/lib/x86_64-linux-gnu/libpng12.so*    \
-		/usr/lib/x86_64-linux-gnu/libgfortran.so* \
-		/usr/lib/x86_64-linux-gnu/libquadmath.so* \
+		/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
+		/usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0 \
+		/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0   \
 		/usr/lib/x86_64-linux-gnu/
 
 # Copy pgplot and HOPS from the builder image

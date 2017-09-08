@@ -64,7 +64,7 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 FROM debian:stretch-slim
 
 # Setup runtime environment
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
 		sudo ghostscript-x gv less csh \
 		perl-doc python \
 		zlib1g libx11-6 libfftw3-double3 &&\

@@ -12,7 +12,7 @@ FROM debian:stretch-slim AS builder
 
 # Setup build environment
 RUN apt-get update && apt-get install -y \
-		wget pkg-config make ghostscript-x bc \
+		wget git pkg-config make ghostscript-x bc \
 		gcc gfortran python-setuptools \
 		zlib1g-dev libx11-dev libfftw3-dev &&\
 	ln -s /usr/bin/f77 /usr/bin/g77 &&\
@@ -59,6 +59,11 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
 	make && make check &&\
 	make install
 
+# Get EAT source
+WORKDIR /usr/local/src
+RUN git clone https://github.com/sao-eht/eat.git &&\
+	rm -rf eat/.git
+
 #==============================================================================
 # The HOPS image
 FROM debian:stretch-slim
@@ -66,19 +71,15 @@ FROM debian:stretch-slim
 # Setup runtime environment
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		sudo ghostscript-x gv less csh \
-		perl-doc python \
-		zlib1g libx11-6 libfftw3-double3 &&\
-	rm -rf	/var/lib/apt/lists/* &&\
-	ln -s	/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
-		/usr/lib/x86_64-linux-gnu/libgfortran.so.3   &&\
-	ln -s	/usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0 \
-		/usr/lib/x86_64-linux-gnu/libquadmath.so.0   &&\
-	ln -s	/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0   \
+		zlib1g libx11-6 libfftw3-double3 \
+		perl-doc python python-astropy python-future \
+		python-matplotlib python-pandas python-scipy \
+		python-setuptools python-pip &&\
+	rm -rf /var/lib/apt/lists/* &&\
+	ln -s	/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0 \
 		/usr/lib/x86_64-linux-gnu/libpng12.so.0
 COPY --from=builder \
-		/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
-		/usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0 \
-		/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0   \
+		/usr/lib/x86_64-linux-gnu/libpng12.so.0.58.0 \
 		/usr/lib/x86_64-linux-gnu/
 
 # Copy pgplot and HOPS from the builder image
@@ -88,6 +89,10 @@ RUN printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   . /usr/local/hops/bin/hops.bash;\n\
 fi\n' >> /etc/bash.bashrc
+
+# Copy EAT source and install it
+COPY --from=builder /usr/local/src/eat /usr/local/src/eat
+RUN cd /usr/local/src/eat && pip install .
 
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
 RUN useradd -ms /bin/bash calibrator && echo "calibrator:calibrator" | chpasswd && adduser calibrator sudo

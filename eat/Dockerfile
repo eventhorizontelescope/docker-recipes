@@ -1,5 +1,5 @@
-# This Dockfiler builds the Haystack Observatory Postprocessing System
-# (HOPS) environment for performing data calibration for the Event
+# This Dockfiler builds the Event Horizon Telescope Analysis Toolkit
+# (EAT) environment for performing data calibration for the Event
 # Horizon Telescope (EHT)'s April 2017 observations.
 #
 # NOTE: Although a Docker image is immutable, building a new image is
@@ -21,7 +21,7 @@ RUN git clone https://github.com/sao-eht/eat.git &&\
 	rm -rf eat/.git
 
 #==============================================================================
-# The HOPS image
+# The EAT image
 FROM chanchikwan/hops
 USER root
 
@@ -35,5 +35,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=builder /usr/local/src/eat /usr/local/src/eat
 RUN cd /usr/local/src/eat && pip install .
 
-# `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
+# `docker run -it <EAT_img>` will run as "calibrator" in the EAT environment
 USER calibrator

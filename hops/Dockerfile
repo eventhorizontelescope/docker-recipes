@@ -94,6 +94,12 @@ fi\n' >> /etc/bash.bashrc
 COPY --from=builder /usr/local/src/eat /usr/local/src/eat
 RUN cd /usr/local/src/eat && pip install .
 
+# Install jupyter
+RUN apt-get update && apt-get install -y \
+		jupyter-notebook jupyter-core \
+		jupyter-nbextension-jupyter-js-widgets python-ipykernel &&\
+	rm -rf /var/lib/apt/lists/*
+
 # `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
 RUN useradd -ms /bin/bash calibrator && echo "calibrator:calibrator" | chpasswd && adduser calibrator sudo
 WORKDIR /home/calibrator

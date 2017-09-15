@@ -48,14 +48,15 @@ RUN wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 
 # Build HOPS
 WORKDIR /usr/local/src/hops/build
-RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-1897.tar.gz \
+RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-2002.tar.gz \
 		-P /usr/local/src &&\
-	tar -zxf /usr/local/src/hops-3.16-1897.tar.gz \
+	tar -zxf /usr/local/src/hops-3.16-2002.tar.gz \
 		-C /usr/local/src/hops --strip-components=1 &&\
 	../configure \
 		HOPS_ROOT=/home/calibrator \
 		PGPLOT_DIR=/usr/local/pgplot \
-		--prefix=/usr/local/hops &&\
+		--prefix=/usr/local/hops \
+		--enable-devel &&\
 	make && make check &&\
 	make install
 

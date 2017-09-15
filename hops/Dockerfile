@@ -53,8 +53,8 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-2002.tar.gz \
 	tar -zxf /usr/local/src/hops-3.16-2002.tar.gz \
 		-C /usr/local/src/hops --strip-components=1 &&\
 	../configure \
-		HOPS_ROOT=/home/calibrator \
 		PGPLOT_DIR=/usr/local/pgplot \
+		HOPS_ROOT=/root \
 		--prefix=/usr/local/hops \
 		--enable-devel &&\
 	make && make check &&\
@@ -90,9 +90,5 @@ if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   . /usr/local/hops/bin/hops.bash;\n\
 fi\n' >> /etc/bash.bashrc
 
-# `docker run -it <HOPS_img>` will run as "calibrator" in the HOPS environment
-RUN useradd -ms /bin/bash calibrator &&\
-	echo "calibrator:calibrator" | chpasswd &&\
-	adduser calibrator sudo
-WORKDIR /home/calibrator
-USER calibrator
+# `docker run -it <HOPS_img>` will run as "root" in the HOPS environment
+WORKDIR /root

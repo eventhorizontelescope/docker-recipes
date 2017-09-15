@@ -17,6 +17,3 @@ RUN apt-get update && apt-get install -y \
 		jupyter-notebook jupyter-core \
 		jupyter-nbextension-jupyter-js-widgets python-ipykernel &&\
 	rm -rf /var/lib/apt/lists/*
-
-# `docker run -it <HOPS-stack_img>` will run as "calibrator" in the HOPS staick
-USER calibrator

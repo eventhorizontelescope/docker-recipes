@@ -31,4 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy EAT source and install it
 COPY --from=builder /usr/local/src/eat /usr/local/src/eat
-RUN cd /usr/local/src/eat && pip install .
+RUN cd /usr/local/src/eat && pip install . &&\
+	printf '\n# prepend the EAT script path to $PATH\n\
+  export PATH="/usr/local/src/eat/bin:$PATH"\n\
+' >> /etc/bash.bashrc

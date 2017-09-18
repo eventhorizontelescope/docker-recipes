@@ -68,7 +68,7 @@ FROM debian:stretch-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		sudo ghostscript-x gv less csh \
 		zlib1g libx11-6 libfftw3-double3 \
-		perl-doc python &&\
+		perl-doc liblist-moreutils-perl python &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	ln -s	/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
 		/usr/lib/x86_64-linux-gnu/libgfortran.so.3   &&\
@@ -85,6 +85,7 @@ COPY --from=builder \
 # Copy pgplot and HOPS from the builder image
 COPY --from=builder /usr/local/pgplot /usr/local/pgplot
 COPY --from=builder /usr/local/hops   /usr/local/hops
+COPY phases.pl /usr/local/hops/bin
 RUN printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   . /usr/local/hops/bin/hops.bash\n\

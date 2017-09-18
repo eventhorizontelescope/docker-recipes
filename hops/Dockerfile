@@ -59,6 +59,7 @@ RUN wget -q ftp://gemini.haystack.mit.edu/pub/hops/hops-3.16-2002.tar.gz \
 		--enable-devel &&\
 	make && make check &&\
 	make install
+COPY phases.pl /usr/local/hops/bin
 
 #==============================================================================
 # The HOPS image
@@ -85,7 +86,6 @@ COPY --from=builder \
 # Copy pgplot and HOPS from the builder image
 COPY --from=builder /usr/local/pgplot /usr/local/pgplot
 COPY --from=builder /usr/local/hops   /usr/local/hops
-COPY phases.pl /usr/local/hops/bin
 RUN printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   . /usr/local/hops/bin/hops.bash\n\

@@ -69,7 +69,7 @@ FROM debian:stretch-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		sudo ghostscript-x gv less csh \
 		zlib1g libx11-6 libfftw3-double3 \
-		perl-doc liblist-moreutils-perl python &&\
+		perl-doc liblist-moreutils-perl parallel python &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	ln -s	/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 \
 		/usr/lib/x86_64-linux-gnu/libgfortran.so.3   &&\

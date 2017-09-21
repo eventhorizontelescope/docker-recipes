@@ -14,7 +14,8 @@ FROM chanchikwan/hops-stack
 # Install Jupyter
 RUN apt-get update && apt-get install -y \
 		jupyter-notebook jupyter-core \
-		jupyter-nbextension-jupyter-js-widgets python-ipykernel &&\
+		jupyter-nbextension-jupyter-js-widgets python-ipykernel \
+		python-ipywidgets &&\
 	rm -rf /var/lib/apt/lists/*
 
 # By default we start a Jupyter Notebook

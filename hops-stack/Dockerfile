@@ -26,10 +26,11 @@ FROM chanchikwan/hops
 # Setup runtime environment
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python-pip python-ipython python-subprocess32 &&\
-	rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade pip &&\
+	apt-get remove -y python-backports-shutil-get-terminal-size &&\
+	rm -rf /var/lib/apt/lists/* &&\
+	pip install --upgrade pip &&\
 	pip install wheel setuptools &&\
-	pip install future &&\
+	pip install future ipython &&\
 	pip install scipy astropy pandas &&\
 	pip install matplotlib bokeh
 

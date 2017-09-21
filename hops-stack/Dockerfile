@@ -30,9 +30,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	rm -rf /var/lib/apt/lists/* &&\
 	pip install --upgrade pip &&\
 	pip install wheel setuptools &&\
-	pip install future ipython &&\
-	pip install scipy astropy pandas &&\
-	pip install matplotlib bokeh
+	pip install future ipython
+RUN pip install scipy astropy pandas
+RUN pip install matplotlib bokeh
 
 # Copy EAT source and install it
 COPY --from=builder /usr/local/src/eat /usr/local/src/eat

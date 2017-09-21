@@ -9,10 +9,7 @@
 #
 #==============================================================================
 # The EAT image
-FROM chanchikwan/eat
+FROM chanchikwan/hops-stack
 
-# Install Jupyter
-RUN apt-get update && apt-get install -y \
-		jupyter-notebook jupyter-core \
-		jupyter-nbextension-jupyter-js-widgets python-ipykernel &&\
-	rm -rf /var/lib/apt/lists/*
+# Always start a Jupyter Notebook
+ENTRYPOINT ["jupyter-notebook", "--ip=0.0.0.0", "--no-browser"]

@@ -8,8 +8,14 @@
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
-# The EAT image
+# The HOPS stack
 FROM chanchikwan/hops-stack
 
 # Always start a Jupyter Notebook
 ENTRYPOINT ["jupyter-notebook", "--ip=0.0.0.0", "--no-browser"]
+
+# To use Jupyter Notebook, run the following from the host:
+#
+#	docker run -it -p 8888:8888 chanchikwan/hops-stack
+#
+# then use a browser to open "http://localhost:8888"

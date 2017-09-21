@@ -15,7 +15,8 @@ FROM chanchikwan/hops-stack
 RUN pip install jupyter
 
 # By default we start a Jupyter Notebook
-CMD jupyter-notebook --allow-root --ip=* --no-browser
+ADD notebook.sh /
+CMD /notebook.sh
 
 # To use Jupyter Notebook, run the following from the host:
 #

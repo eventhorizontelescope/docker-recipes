@@ -25,8 +25,9 @@ FROM chanchikwan/hops
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		python-astropy python-future python-matplotlib python-pandas \
-		python-scipy python-setuptools python-pip &&\
+		python-setuptools python-pip python-future \
+		python-matplotlib python-scipy python-astropy python-pandas \
+		python-ipython &&\
 	rm -rf /var/lib/apt/lists/*
 
 # Copy EAT source and install it

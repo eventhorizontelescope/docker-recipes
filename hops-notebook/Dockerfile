@@ -12,11 +12,7 @@
 FROM chanchikwan/hops-stack
 
 # Install Jupyter and other visualization packages
-RUN apt-get update && apt-get install -y \
-		jupyter-notebook jupyter-core \
-		jupyter-nbextension-jupyter-js-widgets python-ipykernel &&\
-	rm -rf /var/lib/apt/lists/* &&\
-	pip2 install ipywidgets bokeh
+RUN pip install jupyter
 
 # By default we start a Jupyter Notebook
 CMD jupyter-notebook --allow-root --ip=* --no-browser

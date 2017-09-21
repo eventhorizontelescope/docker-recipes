@@ -25,10 +25,13 @@ FROM chanchikwan/hops
 
 # Setup runtime environment
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		python-setuptools python-pip python-future \
-		python-matplotlib python-scipy python-astropy python-pandas \
-		python-ipython &&\
+		python-pip python-ipython python-subprocess32 &&\
 	rm -rf /var/lib/apt/lists/*
+RUN pip install --upgrade pip &&\
+	pip install wheel setuptools &&\
+	pip install future &&\
+	pip install scipy astropy pandas &&\
+	pip install matplotlib bokeh
 
 # Copy EAT source and install it
 COPY --from=builder /usr/local/src/eat /usr/local/src/eat

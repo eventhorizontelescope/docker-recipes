@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 	pip2 install ipywidgets bokeh
 
 # By default we start a Jupyter Notebook
-CMD jupyter-notebook --ip=* --no-browser
+CMD jupyter-notebook --allow-root --ip=* --no-browser
 
 # To use Jupyter Notebook, run the following from the host:
 #

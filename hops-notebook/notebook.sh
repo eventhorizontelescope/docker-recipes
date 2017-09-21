@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if [ -f .jupyter/jupyter.pem  -a -f .jupyter/jupyter.key ]; then
-	FLAGS="--certfile=.jupyter/jupyter.pem --keyfile=.jupyter/jupyter.key"
+if [ -f .jupyter/jupyter_notebook_config.py ]; then
+	jupyter-notebook
+else
+	jupyter-notebook --allow-root --ip='*' --no-browser
 fi
-
-jupyter-notebook $FLAGS --allow-root --ip='*' --no-browser

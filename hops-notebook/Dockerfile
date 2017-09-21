@@ -23,6 +23,8 @@ CMD jupyter-notebook --allow-root --ip=* --no-browser
 
 # To use Jupyter Notebook, run the following from the host:
 #
-#	docker run --rm -p8888:8888 -it chanchikwan/hops-stack
+#	docker run --rm -p8888:8888 -it chanchikwan/hops-notebook
 #
-# then use a browser to open "http://localhost:8888"
+# then use a browser to open
+#
+#	http://[localhost or ip of remote machine]:8888?token=1234...

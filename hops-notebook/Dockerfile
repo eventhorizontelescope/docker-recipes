@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 	rm -rf /var/lib/apt/lists/*
 
 # By default we start a Jupyter Notebook
-CMD ["jupyter-notebook", "--ip=0.0.0.0", "--no-browser"]
+CMD jupyter-notebook --ip=* --no-browser
 
 # To use Jupyter Notebook, run the following from the host:
 #

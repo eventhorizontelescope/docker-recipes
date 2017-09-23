@@ -11,8 +11,13 @@
 FROM	debian:stretch-slim AS builder
 
 # Setup build environment
-RUN	apt-get update && apt-get install -y git &&\
-	rm -rf /var/lib/apt/lists/*
+RUN	apt-get -qq update &&\
+	apt-get install --no-install-recommends -y \
+		ca-certificates git &&\
+ 	apt-get remove -y ca-certificates &&\
+	apt-get autoremove -y &&\
+	apt-get clean &&\
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Get EAT source
 WORKDIR	/usr/local/src
@@ -24,11 +29,14 @@ RUN	git clone https://github.com/sao-eht/eat.git &&\
 FROM	chanchikwan/hops
 
 # Setup runtime environment
-RUN	apt-get update && apt-get install -y --no-install-recommends \
+RUN	apt-get -qq update &&\
+	apt-get install --no-install-recommends -y \
 		python-pip python-ipython python-subprocess32 &&\
-	apt-get remove -y python-backports-shutil-get-terminal-size &&\
-	rm -rf /var/lib/apt/lists/* &&\
-	pip install --upgrade pip &&\
+ 	apt-get remove -y python-backports-shutil-get-terminal-size &&\
+	apt-get autoremove -y &&\
+	apt-get clean &&\
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN	pip install --upgrade pip &&\
 	pip install wheel setuptools &&\
 	pip install future ipython
 RUN	pip install scipy astropy pandas

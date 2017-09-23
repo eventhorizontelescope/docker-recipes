@@ -8,35 +8,36 @@
 #
 #==============================================================================
 # The builder image
-FROM debian:stretch-slim AS builder
+FROM	debian:stretch-slim AS builder
 
 # Setup build environment
-RUN apt-get update && apt-get install -y git &&\
+RUN	apt-get update && apt-get install -y git &&\
 	rm -rf /var/lib/apt/lists/*
 
 # Get EAT source
-WORKDIR /usr/local/src
-RUN git clone https://github.com/sao-eht/eat.git &&\
+WORKDIR	/usr/local/src
+RUN	git clone https://github.com/sao-eht/eat.git &&\
 	rm -rf eat/.git
 
 #==============================================================================
 # The EAT image
-FROM chanchikwan/hops
+FROM	chanchikwan/hops
 
 # Setup runtime environment
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN	apt-get update && apt-get install -y --no-install-recommends \
 		python-pip python-ipython python-subprocess32 &&\
 	apt-get remove -y python-backports-shutil-get-terminal-size &&\
 	rm -rf /var/lib/apt/lists/* &&\
 	pip install --upgrade pip &&\
 	pip install wheel setuptools &&\
 	pip install future ipython
-RUN pip install scipy astropy pandas
-RUN pip install matplotlib bokeh
+RUN	pip install scipy astropy pandas
+RUN	pip install matplotlib bokeh
 
 # Copy EAT source and install it
-COPY --from=builder /usr/local/src/eat /usr/local/src/eat
-RUN cd /usr/local/src/eat && pip install . &&\
+COPY	--from=builder /usr/local/src/eat /usr/local/src/eat
+RUN	cd /usr/local/src/eat &&\
+	pip install . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
   export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc

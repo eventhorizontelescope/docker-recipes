@@ -9,14 +9,14 @@
 #
 #==============================================================================
 # The EAT image
-FROM chanchikwan/hops-stack
+FROM	chanchikwan/hops-stack
 
 # Install Jupyter and other visualization packages
-RUN pip install jupyter
+RUN	pip install jupyter
 
 # By default we start a Jupyter Notebook
-ADD notebook.sh /
-CMD /notebook.sh
+ADD	notebook.sh /
+CMD	/notebook.sh
 
 # To use Jupyter Notebook, run the following from the host:
 #

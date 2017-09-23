@@ -9,15 +9,15 @@
 #
 #==============================================================================
 # The EAT image
-FROM chanchikwan/hops-stack
+FROM	chanchikwan/hops-stack
 
 # Install Jupyter and other visualization packages
-RUN pip install jupyterlab &&\
+RUN	pip install jupyterlab &&\
 	jupyter serverextension enable --py jupyterlab --sys-prefix
 
 # By default we start a Jupyter Lab
-ADD lab.sh /
-CMD /lab.sh
+ADD	lab.sh /
+CMD	/lab.sh
 
 # To use Jupyter Lab, run the following from the host:
 #

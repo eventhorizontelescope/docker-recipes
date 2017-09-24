@@ -13,7 +13,7 @@ FROM	chanchikwan/hops-stack
 
 # Install Jupyter and other visualization packages
 RUN	pip install jupyterlab &&\
-	jupyter serverextension enable --py jupyterlab --sys-prefix
+	jupyter serverextension enable --py --sys-prefix jupyterlab
 
 # By default we start a Jupyter Lab
 ADD	lab.sh /

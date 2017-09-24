@@ -39,3 +39,9 @@ RUN	cd /usr/local/src &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
   export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc
+
+# Clone EHTplot source and install it in development mode
+RUN	cd /usr/local/src &&\
+	git clone https://github.com/liamedeiros/EHTplot.git &&\
+	cd EHTplot &&\
+	pip install -e .

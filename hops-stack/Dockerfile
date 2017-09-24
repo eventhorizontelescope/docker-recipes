@@ -30,6 +30,6 @@ RUN	cd /usr/local/src &&\
   export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc
 
-# Get python data science stack
-RUN	pip install scipy astropy pandas
-RUN	pip install matplotlib bokeh
+# Get popular data science software
+RUN	pip install scipy pandas astropy
+RUN	pip install matplotlib seaborn bokeh holoviews

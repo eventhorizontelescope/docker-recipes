@@ -13,7 +13,12 @@ FROM	chanchikwan/hops
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
-		git python-pip python-ipython python-subprocess32 &&\
+		libsm6 libxext-dev libxrender1 libav-tools \
+		emacs vim git unzip inkscape pandoc \
+		python-dev python-pip python-ipython python-subprocess32 \
+		texlive-latex-base texlive-latex-extra \
+		texlive-xetex texlive-generic-recommended lmodern \
+		texlive-fonts-recommended texlive-fonts-extra &&\
  	apt-get remove -y python-backports-shutil-get-terminal-size &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
@@ -21,7 +26,12 @@ RUN	apt-get -qq update &&\
 	pip install wheel setuptools &&\
 	pip install future ipython
 
-# Copy EAT source and install it
+# Get popular data science software
+RUN	pip install cython scipy sympy numexpr astropy
+RUN	pip install pandas scikit-learn scikit-image
+RUN	pip install matplotlib seaborn bokeh holoviews
+
+# Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
@@ -29,7 +39,3 @@ RUN	cd /usr/local/src &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
   export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc
-
-# Get popular data science software
-RUN	pip install scipy pandas astropy
-RUN	pip install matplotlib seaborn bokeh holoviews

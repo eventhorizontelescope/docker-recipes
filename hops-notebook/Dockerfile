@@ -12,7 +12,7 @@
 FROM	chanchikwan/hops-stack
 
 # Install Jupyter and other visualization packages
-RUN	pip install jupyter &&\
+RUN	pip install jupyter ipywidgets &&\
 	jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # By default we start a Jupyter Notebook

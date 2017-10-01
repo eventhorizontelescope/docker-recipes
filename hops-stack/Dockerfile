@@ -15,7 +15,8 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		libsm6 libxext-dev libxrender1 libav-tools \
 		emacs vim git unzip inkscape pandoc \
-		python-dev python-pip python-ipython python-subprocess32 \
+		python-dev python-pip python-ipython \
+		python-subprocess32 python-tk \
 		texlive-latex-base texlive-latex-extra \
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\

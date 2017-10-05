@@ -73,7 +73,7 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		ca-certificates sudo ghostscript-x gv less csh \
 		zlib1g libx11-6 libfftw3-double3 \
-		perl-doc liblist-moreutils-perl parallel python &&\
+		perl-doc parallel python &&\
 	apt-get remove -y ca-certificates &&\
 	apt-get autoremove -y &&\
 	apt-get clean &&\

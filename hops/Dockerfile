@@ -63,7 +63,6 @@ RUN	wget -q http://fermi.myds.me/scratch/hops/hops-dv-difx-tc-3.17swc.tar.gz \
 		--enable-devel &&\
 	make && make check &&\
 	make install
-COPY	phases.pl /usr/local/hops/bin
 
 #==============================================================================
 # The HOPS image

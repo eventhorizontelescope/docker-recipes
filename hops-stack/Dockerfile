@@ -42,6 +42,13 @@ RUN	cd /usr/local/src &&\
 export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc
 
+# Clone hopstools source and make it available
+RUN	cd /usr/local/src &&\
+	git clone https://github.com/klbouman/hopstools.git &&\
+	printf '\n# prepend the hopstool path to $PATH\n\
+export PATH="/usr/local/src/hopstools:$PATH"\n\
+' >> /etc/bash.bashrc
+
 # Clone EHTplot source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/liamedeiros/EHTplot.git &&\

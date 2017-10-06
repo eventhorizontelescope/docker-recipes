@@ -46,7 +46,6 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 	ln -s /usr/include/png.h /usr/include/pngconf.h \
 		/usr/include/zlib.h /usr/include/zconf.h . &&\
 	make && make cpg &&\
-	# Effectively `make install`
 	mkdir -p /usr/local/pgplot &&\
 	cp pgxwin_server cpgplot.h lib* grfont.dat rgb.txt /usr/local/pgplot
 

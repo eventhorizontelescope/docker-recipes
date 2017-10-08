@@ -54,8 +54,9 @@ WORKDIR	/usr/local/src/hops/build
 RUN	wget -q http://fermi.myds.me/scratch/hops/hops-dv-difx-tc-3.17swc.tar.gz \
 		-P /usr/local/src &&\
 	tar -zxf /usr/local/src/hops-dv-difx-tc-3.17swc.tar.gz \
-		-C /usr/local/src/hops --strip-components=1 &&\
-	../configure \
+		-C /usr/local/src/hops --strip-components=1
+COPY    fourfit.c /usr/local/src/hops/postproc/fourfit
+RUN	../configure \
 		PGPLOT_DIR=/usr/local/pgplot \
 		HOPS_ROOT=/root \
 		--prefix=/usr/local/hops \

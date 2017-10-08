@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -ex
+
+for d in hops{,-stack,-notebook,-lab}; do
+	docker build -t chanchikwan/$d $d
+	docker push     chanchikwan/$d
+done

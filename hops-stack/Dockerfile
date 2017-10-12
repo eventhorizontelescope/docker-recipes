@@ -17,7 +17,7 @@ RUN	apt-get -qq update &&\
 		liblist-moreutils-perl \
 		emacs vim git unzip inkscape pandoc \
 		python-dev python-pip python-ipython \
-		python-subprocess32 python-tk \
+		python-subprocess32 python-tk python-ephem \
 		texlive-latex-base texlive-latex-extra \
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\
@@ -48,6 +48,12 @@ RUN	cd /usr/local/src &&\
 	printf '\n# prepend the hopstool path to $PATH\n\
 export PATH="/usr/local/src/hopstools:$PATH"\n\
 ' >> /etc/bash.bashrc
+
+# Clone eht-imaging source and make it available
+RUN	cd /usr/local/src &&\
+	git clone https://github.com/achael/eht-imaging.git ehtim &&\
+	cd ehtim &&\
+	pip install -e .
 
 # Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\

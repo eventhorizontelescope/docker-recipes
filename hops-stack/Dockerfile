@@ -49,8 +49,8 @@ RUN	cd /usr/local/src &&\
 export PATH="/usr/local/src/hopstools:$PATH"\n\
 ' >> /etc/bash.bashrc
 
-# Clone EHTplot source and install it in development mode
+# Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/liamedeiros/EHTplot.git &&\
-	cd EHTplot &&\
+	git clone https://github.com/liamedeiros/ehtplot.git &&\
+	cd ehtplot &&\
 	pip install -e .

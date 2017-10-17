@@ -71,7 +71,7 @@ FROM	debian:stretch-slim
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
-		ca-certificates sudo ghostscript-x gv less csh \
+		ca-certificates ghostscript-x gv less csh \
 		zlib1g libx11-6 libfftw3-double3 \
 		perl-doc parallel python &&\
 	apt-get remove -y ca-certificates &&\

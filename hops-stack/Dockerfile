@@ -15,7 +15,7 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		libsm6 libxext-dev libxrender1 libav-tools \
 		liblist-moreutils-perl \
-		emacs vim git unzip inkscape pandoc \
+		emacs vim git unzip inkscape pandoc gv parallel \
 		python-dev python-pip python-ipython \
 		python-subprocess32 python-tk python-ephem \
 		texlive-latex-base texlive-latex-extra \

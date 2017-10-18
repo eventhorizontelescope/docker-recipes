@@ -26,7 +26,9 @@ RUN	wget -q https://download.sourceforge.net/libpng/libpng-1.2.58.tar.gz \
 		-P /usr/local/src &&\
 	tar -zxf /usr/local/src/libpng-1.2.58.tar.gz \
 		-C /usr/local/src/libpng --strip-components=1 &&\
-	../configure --prefix=/usr/local/hops &&\
+	../configure \
+		--prefix=/usr/local/hops \
+		--libdir=/usr/local/hops/lib/libpng12 &&\
 	make && make install
 
 # Build pgplot
@@ -45,11 +47,11 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 		-e's/! XW/  XW/g' \
 		../drivers.list > drivers.list &&\
 	../makemake .. linux g77_gcc &&\
-	sed -i~	-e's;-lpng;-L/usr/local/hops/lib -lpng;g' makefile &&\
+	sed -i~	-e's;-lpng;-L/usr/local/hops/lib/libpng12 -lpng;g' makefile &&\
 	make && make cpg &&\
-	mkdir -p /usr/local/hops/pgplot &&\
+	mkdir -p /usr/local/hops/lib/pgplot &&\
 	cp pgxwin_server cpgplot.h lib* grfont.dat rgb.txt \
-		/usr/local/hops/pgplot
+		/usr/local/hops/lib/pgplot
 
 # Build HOPS
 WORKDIR	/usr/local/src/hops/build
@@ -61,8 +63,8 @@ RUN	wget -q http://fermi.myds.me/hops/hops-dv-difx-tc-3.17swc.tar.gz \
 		--prefix=/usr/local/hops \
 		--enable-devel \
 		CPPFLAGS='-I/usr/local/hops/include' \
-		LDFLAGS='-L/usr/local/hops/lib' \
-		PGPLOT_DIR=/usr/local/hops/pgplot \
+		LDFLAGS='-L/usr/local/hops/lib/libpng12' \
+		PGPLOT_DIR=/usr/local/hops/lib/pgplot \
 		HOPS_ROOT=/root &&\
 	make && make check &&\
 	make install
@@ -84,6 +86,8 @@ COPY	--from=builder /usr/local/hops /usr/local/hops
 RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   source /usr/local/hops/bin/hops.bash\n\
+  unset HOPS_ARCH\n\
+  export LD_LIBRARY_PATH="/usr/local/hops/lib/hops:$LD_LIBRARY_PATH"\n\
 fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "root" in the HOPS environment

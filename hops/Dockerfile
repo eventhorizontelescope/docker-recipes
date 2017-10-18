@@ -77,7 +77,7 @@ FROM	debian:stretch-slim
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		libgfortran3 libquadmath0 libfftw3-double3 zlib1g libx11-6 \
-		csh ghostscript-x gv less parallel perl-doc python &&\
+		csh ghostscript-x less perl-doc &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

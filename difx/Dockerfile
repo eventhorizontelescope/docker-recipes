@@ -11,14 +11,12 @@ FROM	debian:stretch-slim AS builder
 
 # Setup build environment
 RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y \
-		ca-certificates subversion \
-		make autoconf automake libtool pkg-config \
-		bison flex g++ gfortran libopenmpi-dev openmpi-bin python \
-		libexpat1-dev libfftw3-dev &&\
+	apt-get install --no-install-recommends -y ca-certificates \
+		subversiaon make autoconf automake libtool pkg-config \
+		bison flex g++ gfortran openmpi-bin python \
+		libexpat1-dev libfftw3-dev libopenmpi-dev &&\
 	apt-get autoremove -y &&\
-	apt-get clean &&\
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Build DiFX
 WORKDIR	/usr/local/src/difx
@@ -31,14 +29,10 @@ FROM	debian:stretch-slim
 
 # Setup runtime environment
 RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y \
-		ca-certificates \
-		ssh openmpi-bin \
-		libexpat1 libfftw3-3 &&\
-	apt-get remove -y ca-certificates &&\
-	apt-get autoremove -y &&\
-	apt-get clean &&\
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	apt-get install --no-install-recommends -y ca-certificates \
+		ssh openmpi-bin libexpat1 libfftw3-3 &&\
+	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy DiFX from the builder image
 COPY	--from=builder /usr/local/difx /usr/local/difx

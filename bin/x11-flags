@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -f /.dockerenv ]; then
+        echo "This script tests the host's X11 setup; \
+avoid running it inside a container"
+        exit 1
+fi
+
+case $(uname) in
+Darwin)
+	IP=$(ifconfig | \
+	     sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\1/p' | \
+	     tail -n1)
+	SS=$(echo $DISPLAY | \
+	     sed -En 's/.*:(.*)/\1/p')
+	xhost + $IP 1>&2
+	echo "-e DISPLAY=$IP:$SS"
+	;;
+Linux)
+	echo "-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
+	;;
+esac

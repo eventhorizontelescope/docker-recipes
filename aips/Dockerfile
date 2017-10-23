@@ -1,28 +1,32 @@
-# This Dockfiler builds the Haystack Observatory Postprocessing System
-# (HOPS) environment for performing data calibration for the Event
-# Horizon Telescope (EHT)'s April 2017 observations.
+# This Dockfiler builds the National Radio Astronomy Observatory
+# (NRAO) Astronomical Image Processing System (AIPS) for performing
+# data calibration for the Event Horizon Telescope (EHT)'s April 2017
+# observations.
 #
 # NOTE: Although a Docker image is immutable, building a new image is
 # not, even when the same Dockfile is used.  Hence, the resulting
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
-# The HOPS image
+# The AIPS image
 FROM	debian:stretch-slim
 
 # Setup build environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
-		curl rsync cvs libncurses5 &&\
+		sudo curl rsync cvs procps xterm libncurses5 &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
-	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN	printf '\n# all users should source AIPS\n\
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
+	useradd -md /usr/local/aips -s /bin/bash aips &&\
+	echo "aips:aips" | chpasswd &&\
+	adduser aips sudo &&\
+	printf '\n# all users should source AIPS\n\
 if [ -f /usr/local/aips/LOGIN.SH ]; then\n\
   source /usr/local/aips/LOGIN.SH\n\
 fi\n' >> /etc/bash.bashrc
+ADD	services /etc
 
-RUN	useradd -md /usr/local/aips -s /bin/bash aips
+# AIPS doesn't like running as root
 WORKDIR	/usr/local/aips
 USER	aips
 

@@ -81,7 +81,7 @@ RUN	apt-get -qq update &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Copy pgplot and HOPS from the builder image
+# Copy HOPS from the builder image
 COPY	--from=builder /usr/local/hops /usr/local/hops
 RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\

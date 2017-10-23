@@ -12,7 +12,7 @@ FROM	debian:stretch-slim AS builder
 # Setup build environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
-		subversiaon make autoconf automake libtool pkg-config \
+		subversion make autoconf automake libtool pkg-config \
 		bison flex g++ gfortran openmpi-bin python \
 		libexpat1-dev libfftw3-dev libopenmpi-dev &&\
 	apt-get autoremove -y &&\

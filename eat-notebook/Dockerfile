@@ -1,5 +1,4 @@
-# This Dockfiler install jupyter notebook on top of the Haystack
-# Observatory Postprocessing System (HOPS) and the Event Horizon
+# This Dockfiler install jupyter notebook on top the Event Horizon
 # Telescope Analysis Toolkit (EAT) for performing data calibration for
 # the Event Horizon Telescope (EHT)'s April 2017 observations.
 #

@@ -7,8 +7,8 @@
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
-# The EAT image
-FROM	chanchikwan/hops-stack
+# The EAT Notebook image
+FROM	chanchikwan/eat
 
 # Install Jupyter and other visualization packages
 RUN	pip install jupyter ipywidgets &&\

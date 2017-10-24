@@ -7,8 +7,8 @@
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
-# The EAT image
-FROM	chanchikwan/hops-stack
+# The EAT Lab image
+FROM	chanchikwan/eat-notebook
 
 # Install Jupyter and other visualization packages
 RUN	pip install jupyterlab &&\

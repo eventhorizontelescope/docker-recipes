@@ -2,8 +2,7 @@
 
 set -ex
 
-for f in */Dockerfile; do
-	d=${f%/Dockerfile}
+for d in difx hops aips eat eat-notebook eat-lab; do
 	docker build -t chanchikwan/$d $d
 	docker push     chanchikwan/$d
 done

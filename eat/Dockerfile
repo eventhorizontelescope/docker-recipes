@@ -7,29 +7,44 @@
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
+# The HOPS image
+FROM	chanchikwan/hops AS hops
+
+#==============================================================================
 # The EAT image
-FROM	chanchikwan/hops
+FROM	chanchikwan/aips
 
 # Setup runtime environment
-RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y \
+RUN	apt-get -qq update
+RUN	apt-get install --no-install-recommends -y \
+		libgfortran3 libquadmath0 libfftw3-double3 zlib1g libx11-6 \
 		libsm6 libxext-dev libxrender1 libav-tools \
 		liblist-moreutils-perl \
+		csh ghostscript-x less perl-doc \
 		emacs vim git unzip inkscape pandoc gv parallel \
-		python-dev python-pip python-ipython \
+		python-dev python-pip ipython cython \
 		python-subprocess32 python-tk python-ephem \
+		python-scipy python-sympy \
 		texlive-latex-base texlive-latex-extra \
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\
- 	apt-get remove -y python-backports-shutil-get-terminal-size &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\
 	pip install wheel setuptools &&\
-	pip install future ipython
+	pip install future tqdm
+
+# Copy HOPS from the hops image
+COPY	--from=hops /usr/local/hops /usr/local/hops
+RUN	printf '\n# all users should source HOPS\n\
+if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
+  source /usr/local/hops/bin/hops.bash\n\
+  unset HOPS_ARCH\n\
+  export LD_LIBRARY_PATH="/usr/local/hops/lib/hops:$LD_LIBRARY_PATH"\n\
+fi\n' >> /etc/bash.bashrc
 
 # Get popular data science software
-RUN	pip install cython scipy sympy numexpr astropy
+RUN	pip install numexpr astropy
 RUN	pip install pandas scikit-learn scikit-image
 RUN	pip install matplotlib seaborn bokeh holoviews
 

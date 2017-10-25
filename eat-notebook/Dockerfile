@@ -8,7 +8,7 @@
 #
 #==============================================================================
 # The EAT Notebook image
-FROM	chanchikwan/eat
+FROM	eventhorizontelescope/eat
 
 # Install Jupyter and other visualization packages
 RUN	pip install jupyter ipywidgets &&\
@@ -20,7 +20,7 @@ CMD	/notebook.sh
 
 # To use Jupyter Notebook, run the following from the host:
 #
-#	docker run --rm -p8888:8888 -it chanchikwan/hops-notebook
+#	docker run --rm -p8888:8888 -it eventhorizontelescope/hops-notebook
 #
 # then use a browser to open
 #

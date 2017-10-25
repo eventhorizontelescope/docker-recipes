@@ -3,6 +3,6 @@
 set -ex
 
 for d in difx hops aips eat eat-notebook eat-lab; do
-	docker build -t chanchikwan/$d $d
-	docker push     chanchikwan/$d
+	docker build -t eventhorizontelescope/$d $d
+	docker push     eventhorizontelescope/$d
 done

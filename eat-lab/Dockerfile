@@ -8,7 +8,7 @@
 #
 #==============================================================================
 # The EAT Lab image
-FROM	chanchikwan/eat-notebook
+FROM	eventhorizontelescope/eat-notebook
 
 # Install Jupyter and other visualization packages
 RUN	pip install jupyterlab &&\
@@ -20,7 +20,7 @@ CMD	/lab.sh
 
 # To use Jupyter Lab, run the following from the host:
 #
-#	docker run --rm -p8888:8888 -it chanchikwan/hops-lab
+#	docker run --rm -p8888:8888 -it eventhorizontelescope/hops-lab
 #
 # then use a browser to open
 #

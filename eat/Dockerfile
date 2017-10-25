@@ -8,11 +8,11 @@
 #
 #==============================================================================
 # The HOPS image
-FROM	chanchikwan/hops AS hops
+FROM	eventhorizontelescope/hops AS hops
 
 #==============================================================================
 # The EAT image
-FROM	chanchikwan/aips
+FROM	eventhorizontelescope/aips
 
 # Setup runtime environment
 RUN	apt-get -qq update

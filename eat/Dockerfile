@@ -20,7 +20,7 @@ RUN	apt-get install --no-install-recommends -y \
 		libgfortran3 libquadmath0 libfftw3-double3 zlib1g libx11-6 \
 		libsm6 libxext-dev libxrender1 libav-tools \
 		liblist-moreutils-perl \
-		csh ghostscript-x less perl-doc \
+		csh ghostscript-x less perl-doc gcc \
 		emacs vim git unzip inkscape pandoc gv parallel \
 		python-dev python-pip ipython cython \
 		python-subprocess32 python-tk python-ephem \

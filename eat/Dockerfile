@@ -15,24 +15,32 @@ FROM	eventhorizontelescope/hops AS hops
 FROM	eventhorizontelescope/aips
 
 # Setup runtime environment
-RUN	apt-get -qq update
-RUN	apt-get install --no-install-recommends -y \
+RUN	apt-get -qq update &&\
+	apt-get install --no-install-recommends -y \
 		libgfortran3 libquadmath0 libfftw3-double3 zlib1g libx11-6 \
-		libsm6 libxext-dev libxrender1 libav-tools \
-		liblist-moreutils-perl \
-		csh ghostscript-x less perl-doc gcc \
+		libxext-dev libxrender1 libav-tools liblist-moreutils-perl \
+		libsm6 \
+		gcc csh ghostscript-x less perl-doc \
 		emacs vim git unzip inkscape pandoc gv parallel \
-		python-dev python-pip ipython cython \
-		python-subprocess32 python-tk python-ephem \
-		python-scipy python-sympy \
 		texlive-latex-base texlive-latex-extra \
 		texlive-xetex texlive-generic-recommended lmodern \
-		texlive-fonts-recommended texlive-fonts-extra &&\
+		texlive-fonts-recommended texlive-fonts-extra \
+		cython ipython \
+		python-tk python-ephem python-tornado python-markupsafe \
+		python-wheel python-setuptools python-future python-pip \
+		python-numexpr python-pandas python-scipy python-sympy \
+		python-astropy python-sklearn-lib python-skimage-lib \
+		python-matplotlib python-seaborn \
+		cython3 ipython3 \
+		python3-tk python3-ephem python3-tornado python3-markupsafe \
+		python3-wheel python3-setuptools python3-future python3-pip \
+		python3-numexpr python3-pandas python3-scipy python3-sympy \
+		python3-astropy python3-sklearn-lib python3-skimage-lib \
+		python3-matplotlib python3-seaborn &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip install --upgrade pip &&\
-	pip install wheel setuptools &&\
-	pip install future tqdm
+	pip  install --upgrade pip && pip  install tqdm bokeh holoviews &&\
+	pip3 install --upgrade pip && pip3 install tqdm bokeh holoviews
 
 # Copy HOPS from the hops image
 COPY	--from=hops /usr/local/hops /usr/local/hops
@@ -43,16 +51,12 @@ if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   export LD_LIBRARY_PATH="/usr/local/hops/lib/hops:$LD_LIBRARY_PATH"\n\
 fi\n' >> /etc/bash.bashrc
 
-# Get popular data science software
-RUN	pip install numexpr astropy
-RUN	pip install pandas scikit-learn scikit-image
-RUN	pip install matplotlib seaborn bokeh holoviews
-
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
-	pip install -e . &&\
+	pip  install -e . &&\
+	pip3 install -e . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
 export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc
@@ -68,10 +72,12 @@ export PATH="/usr/local/src/hopstools:$PATH"\n\
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/achael/eht-imaging.git ehtim &&\
 	cd ehtim &&\
-	pip install -e .
+	pip  install -e . &&\
+	pip3 install -e .
 
 # Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/liamedeiros/ehtplot.git &&\
 	cd ehtplot &&\
-	pip install -e .
+	pip  install -e . &&\
+	pip3 install -e .

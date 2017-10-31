@@ -26,13 +26,15 @@ RUN	apt-get -qq update &&\
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra \
 		cython ipython \
-		python-tk python-ephem python-tornado python-markupsafe \
+		python-zmq python-tk python-ephem \
+		python-tornado python-markupsafe \
 		python-wheel python-setuptools python-future python-pip \
 		python-numexpr python-pandas python-scipy python-sympy \
 		python-astropy python-sklearn-lib python-skimage-lib \
 		python-matplotlib python-seaborn \
 		cython3 ipython3 \
-		python3-tk python3-ephem python3-tornado python3-markupsafe \
+		python3-zmq python3-tk python3-ephem \
+		python3-tornado python3-markupsafe \
 		python3-wheel python3-setuptools python3-future python3-pip \
 		python3-numexpr python3-pandas python3-scipy python3-sympy \
 		python3-astropy python3-sklearn-lib python3-skimage-lib \

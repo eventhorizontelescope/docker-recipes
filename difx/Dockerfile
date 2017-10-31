@@ -13,7 +13,7 @@ FROM	debian:stretch-slim AS builder
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		subversion make autoconf automake libtool pkg-config \
-		bison flex g++ gfortran openmpi-bin python \
+		bison flex g++ gfortran openmpi-bin portmap python \
 		libexpat1-dev libfftw3-dev libopenmpi-dev &&\
 	apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -30,7 +30,7 @@ FROM	debian:stretch-slim
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
-		ssh openmpi-bin libexpat1 libfftw3-3 &&\
+		ssh openmpi-bin portmap python libexpat1 libfftw3-3 &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

@@ -53,12 +53,3 @@ if [ -f /usr/local/aips/LOGIN.SH ]; then\n\
   source /usr/local/aips/LOGIN.SH\n\
 fi\n\
 ' >> /etc/bash.bashrc
-
-# Install ParselTongue
-RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y software-properties-common &&\
-	add-apt-repository ppa:kettenis-w/parseltongue &&\
-	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y parseltongue &&\
-	apt-get remove -y software-properties-common && apt-get autoremove -y &&\
-	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

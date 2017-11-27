@@ -15,7 +15,7 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		pkg-config make gcc gfortran \
 		libfftw3-dev zlib1g-dev libx11-dev \
-		bc ghostscript-x python-setuptools wget &&\
+		bc ghostscript-x python-setuptools python-future wget &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	ln -s /usr/bin/f77 /usr/bin/g77

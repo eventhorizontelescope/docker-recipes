@@ -14,7 +14,7 @@ FROM	eventhorizontelescope/hops
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		git liblist-moreutils-perl parallel \
-		python-setuptools python-pip python-future &&\
+		python-setuptools python-pip python-future python-pandas &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip
 

@@ -10,7 +10,8 @@
 FROM	debian:stretch-slim AS builder
 
 # Setup build environment
-RUN	apt-get -qq update &&\
+RUN	mkdir -p /run/sendsigs.omit.d &&\
+	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		subversion make autoconf automake libtool pkg-config \
 		bison flex g++ gfortran openmpi-bin rpcbind netbase python \
@@ -28,7 +29,8 @@ RUN	svn co https://svn.atnf.csiro.au/difx/master_tags/DiFX-2.5.1 . &&\
 FROM	debian:stretch-slim
 
 # Setup runtime environment
-RUN	apt-get -qq update &&\
+RUN	mkdir -p /run/sendsigs.omit.d &&\
+	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		ssh openmpi-bin rpcbind netbase python libexpat1 libfftw3-3 &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\

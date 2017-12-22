@@ -22,7 +22,10 @@ RUN	mkdir -p /run/sendsigs.omit.d &&\
 # Build DiFX
 WORKDIR	/usr/local/src/difx
 RUN	svn co https://svn.atnf.csiro.au/difx/master_tags/DiFX-2.5.1 . &&\
-	bash -c '. setup.bash && ./install-difx --noipp'
+	bash -c '. setup.bash && ./install-difx --noipp' &&\
+	cp	setup.bash setup.csh /usr/local/difx/bin &&\
+	cp	applications/calcserver/init.d/calcserver \
+		/usr/local/difx/share/CalcServer/
 
 #==============================================================================
 # The DiFX image
@@ -38,7 +41,8 @@ RUN	mkdir -p /run/sendsigs.omit.d &&\
 
 # Copy DiFX from the builder image
 COPY	--from=builder /usr/local/difx /usr/local/difx
-RUN	printf '\n# all users should be able to load difx libraries\n\
+RUN	cp	/usr/local/difx/share/CalcServer/calcserver /etc/init.d/ &&\
+	printf '\n# all users should be able to load difx libraries\n\
 if [ -d /usr/local/difx ]; then\n\
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/difx/lib\n\
   export PATH=$PATH:/usr/local/difx/bin\n\

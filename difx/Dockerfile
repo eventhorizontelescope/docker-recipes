@@ -44,6 +44,7 @@ COPY	--from=builder /usr/local/difx /usr/local/difx
 RUN	cp	/usr/local/difx/share/CalcServer/calcserver /etc/init.d/ &&\
 	printf '\n# all users should be able to load difx libraries\n\
 if [ -d /usr/local/difx ]; then\n\
+  source /usr/local/difx/bin/setup.bash\n\
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/difx/lib\n\
   export PATH=$PATH:/usr/local/difx/bin\n\
 fi\n' >> /etc/bash.bashrc

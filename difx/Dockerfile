@@ -24,8 +24,10 @@ WORKDIR	/usr/local/src/difx
 RUN	svn co https://svn.atnf.csiro.au/difx/master_tags/DiFX-2.5.1 . &&\
 	bash -c '. setup.bash && ./install-difx --noipp' &&\
 	cp	setup.bash setup.csh /usr/local/difx/bin &&\
-	cp	applications/calcserver/init.d/calcserver \
-		/usr/local/difx/share/CalcServer/
+	sed	-e's|/bin/sh|/bin/bash|' \
+		applications/calcserver/init.d/calcserver >\
+		/usr/local/difx/share/CalcServer/calcserver &&\
+	chmod 755 /usr/local/difx/share/CalcServer/calcserver
 
 #==============================================================================
 # The DiFX image

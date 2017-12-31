@@ -17,7 +17,7 @@ RUN	apt-get -qq update &&\
 		python-setuptools python-pip python-future python-tk \
 		python-pandas python-scipy python-astropy python-matplotlib &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip install --upgrade pip
+	pip install --upgrade pip pandas
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\

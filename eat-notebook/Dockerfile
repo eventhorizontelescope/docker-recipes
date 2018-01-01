@@ -11,8 +11,7 @@
 FROM	eventhorizontelescope/eat
 
 # Install Jupyter and other visualization packages
-RUN	pip2 install jupyter ipywidgets &&\
-	pip3 install jupyter ipywidgets &&\
+RUN	pip install jupyter ipywidgets &&\
 	jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # By default we start a Jupyter Notebook

@@ -11,8 +11,7 @@
 FROM	eventhorizontelescope/eat-notebook
 
 # Install Jupyter and other visualization packages
-RUN	pip2 install jupyterlab &&\
-	pip3 install jupyterlab &&\
+RUN	pip install jupyterlab &&\
 	jupyter serverextension enable --py --sys-prefix jupyterlab
 
 # By default we start a Jupyter Lab

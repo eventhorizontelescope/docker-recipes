@@ -41,8 +41,10 @@ RUN	apt-get -qq update &&\
 		python3-matplotlib python3-seaborn &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip  install --upgrade pip && pip  install tqdm bokeh holoviews &&\
-	pip3 install --upgrade pip && pip3 install tqdm bokeh holoviews
+	pip  install --upgrade pip pandas &&\
+	pip  install tqdm bokeh holoviews &&\
+	pip3 install --upgrade pip pandas &&\
+	pip3 install tqdm bokeh holoviews
 
 # Copy HOPS from the hops image
 COPY	--from=hops /usr/local/hops /usr/local/hops

@@ -41,8 +41,8 @@ RUN	apt-get -qq update &&\
 		python3-matplotlib python3-seaborn &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip  install --upgrade pip pandas &&\
-	pip  install tqdm bokeh holoviews &&\
+	pip2 install --upgrade pip pandas &&\
+	pip2 install tqdm bokeh holoviews &&\
 	pip3 install --upgrade pip pandas &&\
 	pip3 install tqdm bokeh holoviews
 
@@ -59,7 +59,7 @@ fi\n' >> /etc/bash.bashrc
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
-	pip  install -e . &&\
+	pip2 install -e . &&\
 	pip3 install -e . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
 export PATH="/usr/local/src/eat/bin:$PATH"\n\
@@ -76,14 +76,14 @@ export PATH="/usr/local/src/hopstools:$PATH"\n\
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/achael/eht-imaging.git ehtim &&\
 	cd ehtim &&\
-	pip  install -e . &&\
+	pip2 install -e . &&\
 	pip3 install -e .
 
 # Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/liamedeiros/ehtplot.git &&\
 	cd ehtplot &&\
-	pip  install -e . &&\
+	pip2 install -e . &&\
 	pip3 install -e .
 
 # Switch back the work directory

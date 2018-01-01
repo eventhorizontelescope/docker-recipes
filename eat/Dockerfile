@@ -85,3 +85,6 @@ RUN	cd /usr/local/src &&\
 	cd ehtplot &&\
 	pip  install -e . &&\
 	pip3 install -e .
+
+# Switch back the work directory
+WORKDIR /root

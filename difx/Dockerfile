@@ -37,7 +37,7 @@ FROM	debian:stretch-slim
 RUN	mkdir -p /run/sendsigs.omit.d &&\
 	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
-		ssh openmpi-bin rpcbind netbase python libexpat1 libfftw3-3 &&\
+		tmux ssh openmpi-bin rpcbind netbase python libexpat1 libfftw3-3 &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

@@ -28,8 +28,8 @@ RUN	apt-get -qq update &&\
 	apt-get install -y \
 		cython ipython python-pip python-tk python-pynfft &&\
 	apt-get clean &&\
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip install --upgrade pip &&\
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN	pip install --upgrade pip &&\
 	pip install setuptools tqdm zmq ephem markupsafe \
 		wheel setuptools future \
 		numexpr pandas scipy sympy \

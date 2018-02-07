@@ -26,8 +26,7 @@ RUN	apt-get -qq update &&\
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra \
 		cython ipython \
-		python-zmq python-tk python-ephem \
-		python-tornado python-markupsafe \
+		python-zmq python-tk python-ephem python-markupsafe \
 		python-wheel python-setuptools python-future python-pip \
 		python-numexpr python-pandas python-scipy python-sympy \
 		python-astropy python-sklearn-lib python-skimage-lib \

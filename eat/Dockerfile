@@ -26,7 +26,7 @@ RUN	apt-get -qq update &&\
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\
 	apt-get install -y \
-		cython ipython python-pip python-tk &&\
+		cython ipython python-pip python-tk python-pynfft &&\
 	apt-get clean &&\
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\

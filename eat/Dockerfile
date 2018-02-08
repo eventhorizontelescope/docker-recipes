@@ -32,7 +32,7 @@ RUN	apt-get -qq update &&\
 RUN	pip install --upgrade pip &&\
 	pip install setuptools tqdm zmq ephem markupsafe \
 		wheel setuptools future \
-		numexpr pandas scipy sympy \
+		numexpr pandas scipy sympy jdcal \
 		astropy scikit-learn scikit-image \
 		matplotlib seaborn bokeh holoviews
 

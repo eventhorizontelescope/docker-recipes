@@ -57,6 +57,7 @@ export PATH="/usr/local/src/eat/bin:$PATH"\n\
 # Clone hopstools source and make it available
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/klbouman/hopstools.git &&\
+	chmod 755 hopstools/*.py &&\
 	printf '\n# prepend the hopstool path to $PATH\n\
 export PATH="/usr/local/src/hopstools:$PATH"\n\
 ' >> /etc/bash.bashrc
@@ -65,7 +66,10 @@ export PATH="/usr/local/src/hopstools:$PATH"\n\
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/achael/eht-imaging.git ehtim &&\
 	cd ehtim &&\
-	pip install -e .
+	pip install -e . &&\
+	printf '\n# prepend the ehtim script path to $PATH\n\
+export PATH="/usr/local/src/ehtim/scripts:$PATH"\n\
+' >> /etc/bash.bashrc
 
 # Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\

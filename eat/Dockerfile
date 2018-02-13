@@ -64,7 +64,7 @@ export PATH="/usr/local/src/hopstools:$PATH"\n\
 
 # Clone eht-imaging source and make it available
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/achael/eht-imaging.git &&\
+	git clone https://github.com/achael/eht-imaging.git ehtim &&\
 	cd ehtim &&\
 	pip install -e . &&\
 	printf '\n# prepend the ehtim script path to $PATH\n\

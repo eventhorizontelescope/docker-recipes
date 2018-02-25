@@ -17,8 +17,7 @@ RUN	apt-get -qq update &&\
 		libfftw3-dev zlib1g-dev libx11-dev \
 		bc ghostscript-x python-setuptools python-future wget &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
-	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	ln -s /usr/bin/f77 /usr/bin/g77
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Build libpng12
 WORKDIR	/usr/local/src/libpng/build
@@ -47,7 +46,9 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 		-e's/! XW/  XW/g' \
 		../drivers.list > drivers.list &&\
 	../makemake .. linux g77_gcc &&\
-	sed -i~	-e's;-lpng;-L/usr/local/hops/lib/libpng12 -lpng;g' makefile &&\
+	sed	-e's|-lpng|-L/usr/local/hops/lib/libpng12 -lpng|g' \
+		-e's|FCOMPL=g77|FCOMPL=gfortran|g' \
+		-i~ makefile &&\
 	make && make cpg &&\
 	mkdir -p /usr/local/hops/lib/pgplot &&\
 	cp pgxwin_server cpgplot.h lib* grfont.dat rgb.txt \

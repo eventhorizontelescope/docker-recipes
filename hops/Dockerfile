@@ -23,7 +23,7 @@ RUN	apt-get -qq update &&\
 WORKDIR	/usr/local/src/libpng/build
 RUN	wget -q https://downloads.sourceforge.net/project/libpng/libpng12/1.2.59/libpng-1.2.59.tar.gz \
 		-P /usr/local/src &&\
-	tar -zxf /usr/local/src/libpng-1.2.58.tar.gz \
+	tar -zxf /usr/local/src/libpng-1.2.59.tar.gz \
 		-C /usr/local/src/libpng --strip-components=1 &&\
 	../configure \
 		--prefix=/usr/local/hops \

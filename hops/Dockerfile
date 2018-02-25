@@ -13,7 +13,7 @@ FROM	debian:stretch-slim AS builder
 # Setup build environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
-		pkg-config make gcc gfortran \
+		pkg-config make gcc gfortran automake autoconf libtool \
 		libfftw3-dev zlib1g-dev libx11-dev \
 		bc ghostscript-x python-setuptools python-future wget &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\

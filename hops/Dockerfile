@@ -57,10 +57,11 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 # Build HOPS
 WORKDIR	/usr/local/src/hops/build
 RUN	wget -q --no-check-certificate \
-		https://35.199.26.203/software/hops/hops-dv-difx-tc-3.18swc.tar.gz \
+		https://35.199.26.203/software/hops/hops_trunk_rev2242.tar.gz \
 		-P /usr/local/src &&\
-	tar -zxf /usr/local/src/hops-dv-difx-tc-3.18swc.tar.gz \
-		-C /usr/local/src/hops --strip-components=1 &&\
+	tar -zxf /usr/local/src/hops_trunk_rev2242.tar.gz \
+		-C /usr/local/src/hops --strip-components=0 &&\
+	cd .. && ./autogen.sh && cd build &&\
 	../configure \
 		--prefix=/usr/local/hops \
 		--enable-devel \

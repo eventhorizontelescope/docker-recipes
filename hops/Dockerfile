@@ -28,7 +28,7 @@ RUN	wget -q https://downloads.sourceforge.net/project/libpng/libpng12/1.2.59/lib
 	../configure \
 		--prefix=/usr/local/hops \
 		--libdir=/usr/local/hops/lib/libpng12 &&\
-	make && make install
+	make && make check && make install
 
 # Build pgplot
 WORKDIR	/usr/local/src/pgplot/build
@@ -69,7 +69,7 @@ RUN	wget -q --no-check-certificate \
 		LDFLAGS='-L/usr/local/hops/lib/libpng12' \
 		PGPLOT_DIR=/usr/local/hops/lib/pgplot \
 		HOPS_ROOT=/root &&\
-	make && make check &&\
+	. ./hops.bash && make && make check &&\
 	make install
 
 #==============================================================================

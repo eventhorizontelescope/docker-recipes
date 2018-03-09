@@ -42,7 +42,6 @@ RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   source /usr/local/hops/bin/hops.bash\n\
   unset HOPS_ARCH\n\
-  export LD_LIBRARY_PATH="/usr/local/hops/lib/hops:$LD_LIBRARY_PATH"\n\
 fi\n' >> /etc/bash.bashrc
 
 # Clone EAT source and install it in development mode

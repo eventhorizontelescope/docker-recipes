@@ -57,11 +57,12 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 # Build HOPS
 WORKDIR	/usr/local/src/hops/build
 RUN	wget -q --no-check-certificate \
-		https://35.199.26.203/software/hops/hops_trunk_rev2242.tar.gz \
+		https://35.199.26.203/software/hops/hops-dv-difx-tc-3.19swc.tar.gz \
 		-P /usr/local/src &&\
-	tar -zxf /usr/local/src/hops_trunk_rev2242.tar.gz \
-		-C /usr/local/src/hops --strip-components=0 &&\
-	cd .. && ./autogen.sh && cd build &&\
+	tar -zxf /usr/local/src/hops-dv-difx-tc-3.19swc.tar.gz \
+		-C /usr/local/src/hops --strip-components=1 &&\
+	sed	-e's|" -a "|" ] \&\& [ "|' \
+		-i~ ../data/ff_testdata/run_testsuite.sh &&\
 	../configure \
 		--prefix=/usr/local/hops \
 		--enable-devel \
@@ -69,8 +70,9 @@ RUN	wget -q --no-check-certificate \
 		LDFLAGS='-L/usr/local/hops/lib/libpng12' \
 		PGPLOT_DIR=/usr/local/hops/lib/pgplot \
 		HOPS_ROOT=/root &&\
-	. ./hops.bash && make && make check &&\
-	make install
+	. ./hops.bash &&\
+	unset HOPS_ARCH &&\
+	make && make install && make check
 
 #==============================================================================
 # The HOPS image
@@ -90,7 +92,6 @@ RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   source /usr/local/hops/bin/hops.bash\n\
   unset HOPS_ARCH\n\
-  export LD_LIBRARY_PATH="/usr/local/hops/lib/hops:$LD_LIBRARY_PATH"\n\
 fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "root" in the HOPS environment

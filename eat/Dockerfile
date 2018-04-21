@@ -25,16 +25,14 @@ RUN	apt-get -qq update &&\
 		texlive-latex-base texlive-latex-extra \
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\
-	apt-get install -y \
-		cython ipython python-pip python-tk python-pynfft &&\
-	apt-get clean &&\
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN	pip install --upgrade pip &&\
-	pip install setuptools tqdm zmq ephem markupsafe \
-		wheel setuptools future \
-		numexpr pandas scipy sympy \
-		astropy scikit-learn scikit-image \
-		matplotlib seaborn bokeh holoviews
+	apt-get install --no-install-recommends -y \
+		cython ipython python-dev python-setuptools python-pip \
+		python-future python-tk python-pynfft \
+		python-pandas python-scipy python-astropy python-matplotlib &&\
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
+	pip install --upgrade pip pandas scipy
+RUN	pip install wheel tqdm zmq ephem markupsafe numexpr sympy \
+		scikit-learn scikit-image seaborn bokeh holoviews
 
 # Copy HOPS from the hops image
 COPY	--from=hops /usr/local/hops /usr/local/hops

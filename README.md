@@ -1,4 +1,4 @@
-This is a container library for the Event Horizon Telescope (EHT).  The directory "bin/" contains convenience scripts that make Docker easier to use.  The following directories container Dockerfiles for building container images that are used in processing EHT data.
+This is a container library for the Event Horizon Telescope (EHT).  The directory "bin/" contains convenience scripts that make Docker easier to use.  The following directories contain Dockerfiles for building container images that are used in processing EHT data.
 
 - difx: the DiFX 2.5.1 package for correlating EHT observations.
 

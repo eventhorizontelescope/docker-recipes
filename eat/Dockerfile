@@ -26,7 +26,7 @@ RUN	apt-get -qq update &&\
 		texlive-xetex texlive-generic-recommended lmodern \
 		texlive-fonts-recommended texlive-fonts-extra &&\
 	apt-get install --no-install-recommends -y \
-		cython ipython python-dev python-setuptools python-pip \
+		cython python-dev python-setuptools python-pip \
 		python-future python-tk python-pynfft \
 		python-pandas python-scipy python-astropy python-matplotlib &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\

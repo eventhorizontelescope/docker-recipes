@@ -27,7 +27,7 @@ RUN	apt-get -qq update &&\
 		texlive-fonts-recommended texlive-fonts-extra &&\
 	apt-get install -y python-pip python-tk python-pynfft &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN	pip install --upgrade pip
+RUN	pip install --upgrade pip numpy
 RUN	pip install future wheel tqdm zmq ephem markupsafe numexpr sympy
 RUN	pip install pandas scipy astropy &&\
 	pip install scikit-learn scikit-image &&\

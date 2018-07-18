@@ -30,7 +30,7 @@ RUN	apt-get -qq update &&\
 RUN	pip install --upgrade pip numpy
 RUN	pip install future wheel tqdm zmq ephem markupsafe numexpr sympy
 RUN	pip install pandas scipy astropy &&\
-	pip install scikit-learn scikit-image &&\
+	pip install scikit-learn scikit-image emcee &&\
 	pip install matplotlib seaborn bokeh holoviews
 
 # Copy HOPS from the hops image
@@ -60,7 +60,7 @@ export PATH="/usr/local/src/hopstools:$PATH"\n\
 
 # Clone eht-imaging source and make it available
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/achael/eht-imaging.git ehtim &&\
+	git clone https://github.com/chanchikwan/ehtim.git &&\
 	cd ehtim &&\
 	pip install -e . &&\
 	printf '\n# prepend the ehtim script path to $PATH\n\

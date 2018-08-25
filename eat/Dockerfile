@@ -7,56 +7,8 @@
 # images of `docker build .` may be different at different time.
 #
 #==============================================================================
-# The HOPS image
-FROM	eventhorizontelescope/hops AS hops
-
-#==============================================================================
-# The EAT image
-FROM	eventhorizontelescope/aips
-
-# Setup runtime environment
-RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y \
-		libgfortran3 libquadmath0 libfftw3-double3 zlib1g libx11-6 \
-		libxext-dev libxrender1 libav-tools liblist-moreutils-perl \
-		libsm6 \
-		gcc csh ghostscript-x less perl-doc \
-		emacs vim git unzip inkscape pandoc gv parallel \
-		texlive-latex-base texlive-latex-extra \
-		texlive-xetex texlive-generic-recommended lmodern \
-		texlive-fonts-recommended texlive-fonts-extra &&\
-	apt-get install -y python-pip python-tk python-pynfft &&\
-	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN	pip install --upgrade pip numpy
-RUN	pip install future wheel tqdm zmq ephem markupsafe numexpr sympy
-RUN	pip install pandas scipy astropy &&\
-	pip install scikit-learn scikit-image emcee &&\
-	pip install matplotlib seaborn bokeh holoviews
-
-# Copy HOPS from the hops image
-COPY	--from=hops /usr/local/hops /usr/local/hops
-RUN	printf '\n# all users should source HOPS\n\
-if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
-  source /usr/local/hops/bin/hops.bash\n\
-  unset HOPS_ARCH\n\
-fi\n' >> /etc/bash.bashrc
-
-# Clone EAT source and install it in development mode
-RUN	cd /usr/local/src &&\
-	git clone https://github.com/sao-eht/eat.git &&\
-	cd eat &&\
-	pip install -e . &&\
-	printf '\n# prepend the EAT script path to $PATH\n\
-export PATH="/usr/local/src/eat/bin:$PATH"\n\
-' >> /etc/bash.bashrc
-
-# Clone hopstools source and make it available
-RUN	cd /usr/local/src &&\
-	git clone https://github.com/klbouman/hopstools.git &&\
-	chmod 755 hopstools/*.py &&\
-	printf '\n# prepend the hopstool path to $PATH\n\
-export PATH="/usr/local/src/hopstools:$PATH"\n\
-' >> /etc/bash.bashrc
+# The HOPS Stack image
+FROM	eventhorizontelescope/hops-stack
 
 # Clone eht-imaging source and make it available
 RUN	cd /usr/local/src &&\
@@ -72,6 +24,3 @@ RUN	cd /usr/local/src &&\
 	git clone https://github.com/liamedeiros/ehtplot.git &&\
 	cd ehtplot &&\
 	pip install -e .
-
-# Switch back the work directory
-WORKDIR /root

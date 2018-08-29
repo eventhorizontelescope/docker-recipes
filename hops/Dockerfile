@@ -92,6 +92,7 @@ RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   source /usr/local/hops/bin/hops.bash\n\
   unset HOPS_ARCH\n\
+  unset HOPS_SETUP\n\
 fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "root" in the HOPS environment

@@ -13,7 +13,7 @@ FROM	eventhorizontelescope/hops
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
-		git liblist-moreutils-perl parallel emacs vim \
+		git liblist-moreutils-perl parallel emacs vim time \
 		python-setuptools python-pip python-future python-tk python-ephem \
 		python-pandas python-scipy python-astropy \
 		python-matplotlib python-seaborn &&\

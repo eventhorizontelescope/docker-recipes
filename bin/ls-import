@@ -7,13 +7,13 @@ fi
 
 for f in $(find "$1" -name '*.py'); do
 	# List packages that are imported using `import ...`
-	grep '^\ *import\ .*$' $f                  |
-	sed -e 's/^\ *import\ //' -e 's/\ *as.*//' |
-	tr ',' '\n'                                |
+	grep '^\ *import\ .*$' $f                    |
+	sed -e 's/^\ *import\ //' -e 's/\ \ *as.*//' |
+	tr ',' '\n'                                  |
 	sed -e 's/^\ *//' -e 's/\..*//'
 
 	# List packages that are imported using `from ... import ...`
-	grep '^\ *from\ .*\ import\ .*$' $f          |
-	sed -e 's/^\ *from\ //' -e 's/\ *import.*//' |
+	grep '^\ *from\ .*\ import\ .*$' $f            |
+	sed -e 's/^\ *from\ //' -e 's/\ \ *import.*//' |
 	sed -e 's/^\ *//' -e 's/\..*//'
 done | sed '/^$/d' | sort | uniq

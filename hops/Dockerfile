@@ -61,8 +61,6 @@ RUN	wget -q --no-check-certificate \
 		-P /usr/local/src &&\
 	tar -zxf /usr/local/src/hops-dv-difx-tc-3.19swc.tar.gz \
 		-C /usr/local/src/hops --strip-components=1 &&\
-	sed	-e's|" -a "|" ] \&\& [ "|' \
-		-i~ ../data/ff_testdata/run_testsuite.sh &&\
 	../configure \
 		--prefix=/usr/local/hops \
 		--enable-devel \

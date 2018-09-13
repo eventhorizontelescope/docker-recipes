@@ -15,7 +15,7 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y ca-certificates \
 		pkg-config make gcc gfortran automake autoconf libtool \
 		libfftw3-dev zlib1g-dev libx11-dev \
-		bc ghostscript-x python-setuptools python-future wget &&\
+		bc ghostscript-x patch python-setuptools python-future wget &&\
 	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -56,20 +56,24 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 
 # Build HOPS
 WORKDIR	/usr/local/src/hops/build
+ADD	afio.py.in.diff mk4.py.in.diff /usr/local/src/hops/
 RUN	wget -q --no-check-certificate \
 		https://35.199.26.203/software/hops/hops-dv-difx-tc-3.19swc.tar.gz \
 		-P /usr/local/src &&\
 	tar -zxf /usr/local/src/hops-dv-difx-tc-3.19swc.tar.gz \
 		-C /usr/local/src/hops --strip-components=1 &&\
+	cd /usr/local/src/hops/sub/mk4py/ &&\
+	patch < ../../afio.py.in.diff &&\
+	patch < ../../mk4.py.in.diff  &&\
+	cd /usr/local/src/hops/build &&\
+	export HOPS_ROOT=/root &&\
 	../configure \
 		--prefix=/usr/local/hops \
 		--enable-devel \
 		CPPFLAGS='-I/usr/local/hops/include' \
 		LDFLAGS='-L/usr/local/hops/lib/libpng12' \
-		PGPLOT_DIR=/usr/local/hops/lib/pgplot \
-		HOPS_ROOT=/root &&\
+		PGPLOT_DIR=/usr/local/hops/lib/pgplot &&\
 	. ./hops.bash &&\
-	unset HOPS_ARCH &&\
 	make && make install && make check
 
 #==============================================================================
@@ -89,8 +93,6 @@ COPY	--from=builder /usr/local/hops /usr/local/hops
 RUN	printf '\n# all users should source HOPS\n\
 if [ -f /usr/local/hops/bin/hops.bash ]; then\n\
   source /usr/local/hops/bin/hops.bash\n\
-  unset HOPS_ARCH\n\
-  unset HOPS_SETUP\n\
 fi\n' >> /etc/bash.bashrc
 
 # `docker run -it <HOPS_img>` will run as "root" in the HOPS environment

@@ -1,10 +1,11 @@
 --- mk4.py.in	2017-11-23 00:50:03.000000000 -0700
-+++ new-mk4.py.in	2018-09-17 20:34:17.000000000 -0700
-@@ -930,26 +930,31 @@
++++ new-mk4.py.in	2018-09-17 20:54:57.000000000 -0700
+@@ -930,26 +930,32 @@
  ################################################################################
- 
+
  def mk4io_load():
-+    paths = []
++    # Default installation location
++    paths = ['@prefix@/lib']
 +
 +    # Construct path from HOPS environment variables
      root = getenv('HOPS_ROOT')
@@ -47,6 +48,6 @@
 +
 +    # Otherwise, we didn't find the library
 +    return None
- 
+
  def mk4corel(filename):
      mk4p = mk4_corel()

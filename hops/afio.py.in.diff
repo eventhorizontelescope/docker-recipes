@@ -1,10 +1,11 @@
 --- afio.py.in	2017-10-25 23:50:02.000000000 -0700
-+++ new-afio.py.in	2018-09-17 20:34:46.000000000 -0700
-@@ -328,26 +328,31 @@
++++ new-afio.py.in	2018-09-17 20:55:24.000000000 -0700
+@@ -328,26 +328,32 @@
  ]
- 
+
  def afio_load():
-+    paths = []
++    # Default installation location
++    paths = ['@prefix@/lib']
 +
 +    # Construct path from HOPS environment variables
      root = getenv('HOPS_ROOT')
@@ -47,6 +48,6 @@
 +
 +    # Otherwise, we didn't find the library
 +    return None
- 
+
  def alist(filename):
      alist_file = afile_structure()

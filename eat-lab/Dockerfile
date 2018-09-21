@@ -13,8 +13,8 @@ FROM	eventhorizontelescope/eat-notebook
 # Install Jupyter and other visualization packages
 RUN	apt-get -qq update &&\
         apt-get install --no-install-recommends -y gcc python-dev &&\
-	apt-get remove -y python-matplotlib python-subprocess32 &&\
-	pip install matplotlib jupyterlab &&\
+	apt-get remove -y python-subprocess32 &&\
+	pip install jupyterlab &&\
 	apt-get remove -y gcc python-dev &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	jupyter serverextension enable --py --sys-prefix jupyterlab

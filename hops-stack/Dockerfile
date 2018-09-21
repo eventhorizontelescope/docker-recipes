@@ -19,6 +19,7 @@ RUN	apt-get -qq update &&\
 		python-matplotlib python-seaborn &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\
+	hash -r &&\
 	pip install --upgrade pandas matplotlib seaborn
 
 # Clone EAT source and install it in development mode

@@ -15,7 +15,8 @@ RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		git liblist-moreutils-perl parallel emacs vim time \
 		python-setuptools python-pip python-future python-tk \
-		python-h5py python-pandas python-scipy python-astropy \
+		python-pynfft python-h5py \
+		python-pandas python-scipy python-astropy \
 		python-ephem python-matplotlib python-seaborn &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\

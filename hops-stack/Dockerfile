@@ -20,7 +20,8 @@ RUN	apt-get -qq update &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\
 	hash -r &&\
-	pip install --upgrade pandas scipy astropy ephem matplotlib seaborn
+	pip install --upgrade pandas scipy astropy ephem matplotlib seaborn &&\
+	pip install scikit-image scikit-learn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\

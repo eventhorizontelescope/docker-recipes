@@ -67,3 +67,22 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/difmap/difmap2.5b.tar.gz \
 	./makeall &&\
 	cp    difmap /usr/local/difmap/bin &&\
 	cp -r help   /usr/local/difmap/share
+
+#==============================================================================
+# The difmap image
+FROM	debian:stretch-slim
+
+# Setup runtime environment
+RUN	apt-get -qq update &&\
+	apt-get install --no-install-recommends -y ca-certificates \
+		libgfortran3 libquadmath0 zlib1g libx11-6 libncurses5 &&\
+	apt-get remove -y ca-certificates && apt-get autoremove -y &&\
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Copy HOPS from the builder image
+COPY	--from=builder /usr/local/difmap /usr/local/difmap
+RUN	printf '\n# place difmap path\n\
+export PATH="/usr/local/difmap/bin:$PATH"\n' >> /etc/bash.bashrc
+
+# `docker run -it <HOPS_img>` will run as "root" in the HOPS environment
+WORKDIR	/root

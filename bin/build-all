@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -ex
-
-for d in hops hops-stack eat eat-notebook eat-lab; do
-	docker build -t eventhorizontelescope/$d $d
-	docker push     eventhorizontelescope/$d
-done

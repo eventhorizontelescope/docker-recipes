@@ -8,7 +8,7 @@
 #
 #==============================================================================
 # The HOPS image
-FROM	eventhorizontelescope/hops
+FROM	astcon/hops
 
 # Setup runtime environment
 RUN	apt-get -qq update &&\

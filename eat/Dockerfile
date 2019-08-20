@@ -12,7 +12,7 @@ FROM	eventhorizontelescope/hops-stack
 
 # Clone eht-imaging source and make it available
 RUN	cd /usr/local/src &&\
-	git clone -b polrep https://github.com/chanchikwan/ehtim.git &&\
+	git clone https://github.com/achael/eht-imaging.git ehtim &&\
 	cd ehtim &&\
 	pip install -e . &&\
 	printf '\n# prepend the ehtim script path to $PATH\n\
@@ -21,6 +21,6 @@ export PATH="/usr/local/src/ehtim/scripts:$PATH"\n\
 
 # Clone ehtplot source and install it in development mode
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/chanchikwan/ehtplot.git &&\
+	git clone https://github.com/liamedeiros/ehtplot.git &&\
 	cd ehtplot &&\
 	pip install -e .

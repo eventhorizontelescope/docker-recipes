@@ -8,17 +8,21 @@
 #
 #==============================================================================
 # The HOPS image
-FROM	eventhorizontelescope/hops
+FROM	astcon/hops
 
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
 		git liblist-moreutils-perl parallel emacs vim time \
-		python-setuptools python-pip python-future python-tk python-ephem \
+		python-setuptools python-pip python-future python-tk \
+		python-pynfft python-h5py python-tables \
 		python-pandas python-scipy python-astropy \
-		python-matplotlib python-seaborn &&\
+		python-ephem python-matplotlib python-seaborn &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip install --upgrade pip pandas
+	pip install --upgrade pip &&\
+	hash -r &&\
+	pip install --upgrade pandas scipy astropy ephem matplotlib seaborn &&\
+	pip install scikit-image scikit-learn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\

@@ -8,7 +8,7 @@
 #
 #==============================================================================
 # The img-env image
-FROM	eventhorizontelescope/difmap
+FROM	astcon/difmap
 
 # Setup runtime environment
 RUN	apt-get -qq update &&\

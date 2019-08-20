@@ -8,34 +8,28 @@
 #
 #==============================================================================
 # The HOPS image
-FROM	eventhorizontelescope/hops
+FROM	astcon/hops
 
 # Setup runtime environment
 RUN	apt-get -qq update &&\
 	apt-get install --no-install-recommends -y \
-		git liblist-moreutils-perl parallel emacs vim time \
+		git liblist-moreutils-perl parallel emacs vim time &&\
+	apt-get install --no-install-recommends -y \
 		python-setuptools python-pip python-future python-tk \
-		python-pynfft python-h5py python-tables \
+		python-pynfft python-h5py python-tables python-ephem \
 		python-pandas python-scipy python-astropy \
-		python-ephem python-matplotlib python-seaborn &&\
+		python-matplotlib python-seaborn &&\
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
 	pip install --upgrade pip &&\
 	hash -r &&\
-	pip install --upgrade pandas scipy astropy ephem matplotlib seaborn &&\
+	pip install --upgrade pandas scipy astropy matplotlib seaborn &&\
 	pip install scikit-image scikit-learn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/chanchikwan/eat.git &&\
+	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
 	pip install -e . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
 export PATH="/usr/local/src/eat/bin:$PATH"\n\
-' >> /etc/bash.bashrc
-
-# Clone hopstools source and make it available
-RUN	cd /usr/local/src &&\
-	git clone https://github.com/chanchikwan/hopstools.git &&\
-	printf '\n# prepend the hopstool path to $PATH\n\
-export PATH="/usr/local/src/hopstools:$PATH"\n\
 ' >> /etc/bash.bashrc

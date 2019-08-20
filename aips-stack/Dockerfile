@@ -9,7 +9,7 @@
 #
 #==============================================================================
 # The AIPS image
-FROM	eventhorizontelescope/aips
+FROM	astcon/aips
 
 # Setup build environment
 RUN	apt-get -qq update &&\
@@ -29,7 +29,7 @@ RUN	apt-get -qq update &&\
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\
-	git clone https://github.com/chanchikwan/eat.git &&\
+	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
 	pip install -e . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\

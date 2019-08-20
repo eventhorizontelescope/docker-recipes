@@ -9,7 +9,7 @@
 #
 #==============================================================================
 # The AIPS image
-FROM	eventhorizontelescope/aips
+FROM	astcon/aips
 
 # Setup build environment
 RUN	apt-get -qq update &&\

@@ -56,9 +56,9 @@ RUN	wget -q ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz \
 
 # Build difmap
 WORKDIR	/usr/local/src/difmap
-RUN	wget -q ftp://ftp.astro.caltech.edu/pub/difmap/difmap2.5b.tar.gz \
+RUN	wget -q ftp://ftp.astro.caltech.edu/pub/difmap/difmap2.5e.tar.gz \
 		-P /usr/local/src &&\
-	tar -zxf /usr/local/src/difmap2.5b.tar.gz \
+	tar -zxf /usr/local/src/difmap2.5e.tar.gz \
 		-C /usr/local/src/difmap --strip-components=2 &&\
 	sed	-e's|^LDFLAGS=""$|LDFLAGS="-L/usr/local/difmap/lib/libpng12 -L/usr/local/difmap/lib/pgplot"|g' \
 		-e's|^PGPLOT_LIB="-lpgplot -lX11"|PGPLOT_LIB="-lpgplot -Wl,-rpath=/usr/local/difmap/lib/pgplot -lpng -Wl,-rpath=/usr/local/difmap/lib/libpng12 -lX11"|g' \

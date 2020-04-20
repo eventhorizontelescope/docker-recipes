@@ -17,14 +17,6 @@
 ARG	dsttag=20200130
 ARG	srctag=20200130
 
-# This Dockfiler builds the Event Horizon Telescope Analysis Toolkit
-# (EAT) environment for performing data calibration for the Event
-# Horizon Telescope (EHT)'s April 2017 observations.
-#
-# NOTE: Although a Docker image is immutable, building a new image is
-# not, even when the same Dockfile is used.  Hence, the resulting
-# images of `docker build .` may be different at different time.
-#
 #==============================================================================
 # The base image: the AstroContainers HOPS image
 

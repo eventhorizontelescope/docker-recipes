@@ -21,6 +21,8 @@ if test "x${1}" == "x--commit"; then
 fi
 
 if test "${#}" -lt 1; then
+	# No need to manually list order because "eat-jupyter" would
+	# also listed after "eat"
 	for f in */Dockerfile; do
 		d="${f%/Dockerfile}"
 		eval "${0} ${commit} ${d}"

@@ -35,7 +35,7 @@ FROM	astcon/hops:${srctag} AS base
 
 # Setup runtime environment
 RUN	laniapt	git liblist-moreutils-perl parallel emacs vim time \
-		python3-setuptools python3-pip python3-future python3-tk \
+		python3-setuptools python3-pip python3-wheel python3-future python3-tk \
 		python3-pynfft python3-h5py python3-tables python3-ephem \
 		python3-pandas python3-scipy python3-astropy \
 		python3-skimage python3-sklearn \

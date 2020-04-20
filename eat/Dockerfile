@@ -17,15 +17,8 @@
 ARG	dsttag=20200130
 ARG	srctag=20200130
 
-#==============================================================================
-# The base image: the AstroContainers HOPS image
+FROM	astcon/hops:${srctag}
 
-FROM	astcon/hops:${srctag} AS base
-
-#==============================================================================
-# The EAT runtime image
-
-# Setup runtime environment
 RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
 		python3-tk python3-pynfft python3-tables python3-pandas \
 		python3-scipy python3-h5py python3-ephem python3-astropy \
@@ -33,7 +26,6 @@ RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
 		python3-skimage python3-sklearn ipython3
 RUN	laniapt time liblist-moreutils-perl parallel
 
-# Install EAT stack using zip files directly from GitHub
 RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip
 RUN	pip3 install https://github.com/achael/eht-imaging/archive/master.zip
 RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip

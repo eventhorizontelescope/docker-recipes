@@ -17,13 +17,10 @@
 ARG	dsttag=3.20
 ARG	srctag=20200130
 
-# The base image is EHT's EAT image
 FROM	ehtcon/eat:${srctag}
 
-# Install Jupyter and other visualization packages
 RUN	laniapt jupyter-notebook jupyter-nbconvert
 
-# By default we start a Jupyter Notebook
 ADD	notebook.sh /
 CMD	/notebook.sh
 

@@ -34,14 +34,16 @@ FROM	astcon/hops:${srctag} AS base
 # The EAT runtime image
 
 # Setup runtime environment
-RUN	laniapt	liblist-moreutils-perl parallel emacs-nox vim time \
-		python3-setuptools python3-pip python3-wheel python3-future python3-tk \
-		python3-pynfft python3-h5py python3-tables python3-ephem \
-		python3-pandas python3-scipy python3-astropy \
-		python3-skimage python3-sklearn \
-		python3-matplotlib python3-seaborn
+RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
+		python3-tk python3-pynfft python3-scipy \
+		python3-tables python3-pandas python3-h5py \
+		python3-ephem python3-astropy \
+		python3-matplotlib python3-seaborn \
+		python3-skimage python3-sklearn
+RUN	laniapt time liblist-moreutils-perl parallel
+RUN	laniapt emacs-nox vim
 
 # Install EAT stack using zip files directly from GitHub
-RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip &&\
-	pip3 install https://github.com/achael/eht-imaging/archive/master.zip &&\
-	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip
+RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip
+RUN	pip3 install https://github.com/achael/eht-imaging/archive/master.zip
+RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip

@@ -19,5 +19,5 @@ for f in */Dockerfile; do
 	d="${f%/Dockerfile}"
 	tags=($(sed -n 's/^ARG	dsttag=\(.*\)$/\1/p' "$f" | tr ',' '\n'))
 	t="${tags[0]}"
-	docker build -t "astcon/$d:$t" "$d"
+	docker build -t "ehtcon/$d:$t" "$d"
 done

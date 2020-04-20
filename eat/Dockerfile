@@ -29,3 +29,5 @@ RUN	laniapt time liblist-moreutils-perl parallel
 RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip
 RUN	pip3 install https://github.com/achael/eht-imaging/archive/master.zip
 RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip
+
+CMD	["ipython3"]

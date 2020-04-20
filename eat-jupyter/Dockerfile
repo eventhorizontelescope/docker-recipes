@@ -20,9 +20,9 @@ ARG	srctag=20200130
 FROM	ehtcon/eat:${srctag}
 
 RUN	laniapt jupyter-notebook jupyter-nbconvert
+COPY	notebook /usr/local/bin/
 
-ADD	notebook.sh /
-CMD	/notebook.sh
+CMD	["notebook"]
 
 # To use Jupyter Notebook, run the following from the host:
 #

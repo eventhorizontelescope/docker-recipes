@@ -37,7 +37,7 @@ CMD	/notebook.sh
 
 # To use Jupyter Notebook, run the following from the host:
 #
-#	docker run --rm -p8888:8888 -it ehtcon/eat-notebook
+#	docker run --rm -p8888:8888 -it ehtcon/eat-jupyter
 #
 # then use a browser to open
 #

@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Copyright 2020 Chi-kwan Chan
+# Copyright 2020 Steward Observatory
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you
+# may not use this file except in compliance with the License.  You
+# may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.  See the License for the specific language governing
+# permissions and limitations under the License.
+
+if test "x${1}" == "x--commit"; then
+	commit="${1}"
+	shift
+fi
+
+if test "${#}" -lt 1; then
+	for f in */Dockerfile; do
+		d="${f%/Dockerfile}"
+		eval "${0} ${commit} ${d}"
+	done
+	exit 0
+fi
+
+set -e
+
+repo="${1}"
+cd "${repo}"
+
+vars=($(awk '/^---[ |-]*$/{getline; print}' README* | tr -d ' `' | tr '|' '\n'))
+tags=($(echo "${vars[0]}" | tr ',' '\n'))
+
+awkc='/^ARG/{count++; '
+i=0
+for i in "${!vars[@]}"; do
+    awkc+="if(count==$(expr ${i} + 1)) sub(\"=.*\$\", \"=${vars[${i}]}\"); "
+done
+awkc+='} {print $0}'
+
+mv Dockerfile Dockerfile~
+awk "${awkc}" Dockerfile~ > Dockerfile
+if cmp -s Dockerfile Dockerfile~; then
+	mv Dockerfile~ Dockerfile # conserve inode
+	cat <<EOF
+No update was made to "${repo}/Dockerfile"
+
+Run \`git tag ${repo}-${tags[0]} && git push --tag\` if needed.
+EOF
+	if test "x$commit" == "x--commit"; then
+		echo "No commit could be made"
+	fi
+else
+	message=$(cat <<EOF
+Updated "${repo}/Dockerfile" for \`${repo}:${tags[0]}\`
+
+Please run \`git tag ${repo}-${tags[0]} && git push --tag\` after commit.
+EOF
+	)
+	if test "x$commit" == "x--commit"; then
+		git add .
+		git commit -m "$message"
+	else
+		echo "$message"
+	fi
+fi

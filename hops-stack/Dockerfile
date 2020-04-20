@@ -34,12 +34,12 @@ FROM	astcon/hops:${srctag} AS base
 # The EAT runtime image
 
 # Setup runtime environment
-RUN	laniapt	git liblist-moreutils-perl parallel emacs vim time \
+RUN	laniapt	liblist-moreutils-perl parallel emacs vim time \
 		python3-setuptools python3-pip python3-wheel python3-future python3-tk \
 		python3-pynfft python3-h5py python3-tables python3-ephem \
 		python3-pandas python3-scipy python3-astropy \
 		python3-skimage python3-sklearn \
 		python3-matplotlib python3-seaborn
 
-# Install EAT directly from GitHub
-RUN	pip3 install git+https://github.com/sao-eht/eat.git
+# Install EAT using a zip file directly from GitHub
+RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip

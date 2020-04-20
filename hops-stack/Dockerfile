@@ -41,12 +41,7 @@ RUN	apt-get -qq update &&\
 		python-setuptools python-pip python-future python-tk \
 		python-pynfft python-h5py python-tables python-ephem \
 		python-pandas python-scipy python-astropy \
-		python-matplotlib python-seaborn &&\
-	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-	pip install --upgrade pip &&\
-	hash -r &&\
-	pip install --upgrade pandas scipy astropy matplotlib seaborn &&\
-	pip install scikit-image scikit-learn
+		python-matplotlib python-seaborn python-skimage python-sklearn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\

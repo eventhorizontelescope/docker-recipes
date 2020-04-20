@@ -41,11 +41,5 @@ RUN	laniapt	git liblist-moreutils-perl parallel emacs vim time \
 		python3-skimage python3-sklearn \
 		python3-matplotlib python3-seaborn
 
-# Clone EAT source and install it in development mode
-RUN	cd /usr/local/src &&\
-	git clone https://github.com/sao-eht/eat.git &&\
-	cd eat &&\
-	pip3 install -e . &&\
-	printf '\n# prepend the EAT script path to $PATH\n\
-export PATH="/usr/local/src/eat/bin:$PATH"\n\
-' >> /etc/bash.bashrc
+# Install EAT directly from GitHub
+RUN	pip3 install git+https://github.com/sao-eht/eat.git

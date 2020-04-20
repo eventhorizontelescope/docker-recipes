@@ -34,14 +34,12 @@ FROM	astcon/hops:${srctag} AS base
 # The EAT runtime image
 
 # Setup runtime environment
-RUN	apt-get -qq update &&\
-	apt-get install --no-install-recommends -y \
-		git liblist-moreutils-perl parallel emacs vim time &&\
-	apt-get install --no-install-recommends -y \
+RUN	laniapt	git liblist-moreutils-perl parallel emacs vim time \
 		python-setuptools python-pip python-future python-tk \
 		python-pynfft python-h5py python-tables python-ephem \
 		python-pandas python-scipy python-astropy \
-		python-matplotlib python-seaborn python-skimage python-sklearn
+		python-skimage python-sklearn \
+		python-matplotlib python-seaborn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\

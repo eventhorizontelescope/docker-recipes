@@ -41,7 +41,6 @@ RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
 		python3-matplotlib python3-seaborn \
 		python3-skimage python3-sklearn
 RUN	laniapt time liblist-moreutils-perl parallel
-RUN	laniapt emacs-nox vim
 
 # Install EAT stack using zip files directly from GitHub
 RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip

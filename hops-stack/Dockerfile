@@ -35,17 +35,17 @@ FROM	astcon/hops:${srctag} AS base
 
 # Setup runtime environment
 RUN	laniapt	git liblist-moreutils-perl parallel emacs vim time \
-		python-setuptools python-pip python-future python-tk \
-		python-pynfft python-h5py python-tables python-ephem \
-		python-pandas python-scipy python-astropy \
-		python-skimage python-sklearn \
-		python-matplotlib python-seaborn
+		python3-setuptools python3-pip python3-future python3-tk \
+		python3-pynfft python3-h5py python3-tables python3-ephem \
+		python3-pandas python3-scipy python3-astropy \
+		python3-skimage python3-sklearn \
+		python3-matplotlib python3-seaborn
 
 # Clone EAT source and install it in development mode
 RUN	cd /usr/local/src &&\
 	git clone https://github.com/sao-eht/eat.git &&\
 	cd eat &&\
-	pip install -e . &&\
+	pip3 install -e . &&\
 	printf '\n# prepend the EAT script path to $PATH\n\
 export PATH="/usr/local/src/eat/bin:$PATH"\n\
 ' >> /etc/bash.bashrc

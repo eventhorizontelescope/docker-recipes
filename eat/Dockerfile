@@ -25,9 +25,19 @@ RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
 		python3-matplotlib python3-seaborn \
 		python3-skimage python3-sklearn ipython3
 RUN	laniapt time liblist-moreutils-perl parallel
+RUN	laniapt jupyter-notebook jupyter-nbconvert
+COPY	notebook /usr/local/bin/
 
 RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/0.9.0.tar.gz
 RUN	pip3 install https://github.com/achael/eht-imaging/archive/v1.1.2.tar.gz
 RUN	pip3 install https://github.com/sao-eht/eat/archive/v1.6.tar.gz
 
-CMD	["ipython3"]
+CMD	["notebook"]
+
+# To use Jupyter Notebook, run the following from the host:
+#
+#	docker run --rm -p8888:8888 -it ehtcon/eat
+#
+# then use a browser to open
+#
+#	http://[localhost or ip of remote machine]:8888?token=1234...

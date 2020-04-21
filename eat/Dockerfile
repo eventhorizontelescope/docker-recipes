@@ -32,11 +32,11 @@ RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/0.9.0.tar.gz
 RUN	pip3 install https://github.com/achael/eht-imaging/archive/v1.1.2.tar.gz
 RUN	pip3 install https://github.com/sao-eht/eat/archive/v1.6.tar.gz
 
-CMD	["notebook"]
+CMD	["ipython3"]
 
 # To use Jupyter Notebook, run the following from the host:
 #
-#	docker run --rm -p8888:8888 -it ehtcon/eat
+#	docker run --rm -p8888:8888 -it ehtcon/eat notebook
 #
 # then use a browser to open
 #

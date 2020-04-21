@@ -19,6 +19,7 @@ https://astrocontainers.org/ and https://l6a.org, respectively.
 
 [`eat`][1] tags | `hops` tag
 --- | ---
+`1.6`, `20200130`, `1`, `latest` | `20200130`
 
 In general, although a Docker image is immutable, building a new image
 is not, even with the same Dockerfile.

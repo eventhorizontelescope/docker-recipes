@@ -26,8 +26,8 @@ RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
 		python3-skimage python3-sklearn ipython3
 RUN	laniapt time liblist-moreutils-perl parallel
 
-RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/master.zip
-RUN	pip3 install https://github.com/achael/eht-imaging/archive/master.zip
-RUN	pip3 install https://github.com/sao-eht/eat/archive/master.zip
+RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/0.9.0.zip
+RUN	pip3 install https://github.com/achael/eht-imaging/archive/v1.1.2.zip
+RUN	pip3 install https://github.com/sao-eht/eat/archive/v1.6.zip
 
 CMD	["ipython3"]

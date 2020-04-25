@@ -16,28 +16,16 @@
 ARG	dsttag=1.6,20200130,1,latest
 ARG	srctag=20200130
 
-FROM	l6acon/lanibase:${srctag} AS base
+FROM	astcon/astropy:${srctag} AS base
 
 # Generic science python packages
-RUN	laniapt	python-setuptools python-pip python-wheel \
-		python-future python-py python-pytest \
-		python-more-itertools python-pyfftw python-pynfft \
-		python-tables python-pandas python-h5py python-scipy \
-		python-tk python-matplotlib python-seaborn \
-		python-skimage python-sklearn
-
-# Astronomy python packages
-RUN	laniapt python-attr python-pluggy python-atomicwrites python-ephem
-RUN	pip install astropy==2.0.16
-
-# ipython
-RUN	laniapt ipython
+RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
+		python-pandas python-tables python-h5py python-scipy \
+		python-seaborn python-skimage python-sklearn
 
 # Jupyter notebook
 RUN	laniapt jupyter-notebook jupyter-nbconvert
 COPY	notebook /usr/local/bin/
-
-CMD	["ipython"]
 
 # To use Jupyter Notebook, run the following from the host:
 #

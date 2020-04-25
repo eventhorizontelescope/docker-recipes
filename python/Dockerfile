@@ -24,7 +24,7 @@ RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
 		python-seaborn python-skimage python-sklearn
 
 # Jupyter notebook
-RUN	laniapt jupyter-notebook jupyter-nbconvert
+RUN	laniapt python-notebook python-nbconvert
 COPY	notebook /usr/local/bin/
 
 # To use Jupyter Notebook, run the following from the host:

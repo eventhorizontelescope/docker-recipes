@@ -50,9 +50,17 @@ FROM	base
 COPY	--from=builder /usr/local/hops /usr/local/hops
 COPY	entrypoint /usr/local/sbin/
 
+# Install EHT python packages directly from GitHub
 ARG	ehtplottag
 RUN	pip install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz
 ARG	ehtimtag
 RUN	pip install https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz
 ARG	eattag
 RUN	pip install https://github.com/sao-eht/eat/archive/${eattag}.tar.gz
+
+# Download IERS data package at build time
+# WARNING: this breaks reproducibility at build time!  But once this
+# image is built, pipelines that use this image can use the cached
+# IERS data package all the time, making pipeline results
+# reproducible.
+RUN	python -c 'from astropy.time import Time; t = Time("2016:001"); print(t.ut1)'

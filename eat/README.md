@@ -17,9 +17,9 @@ https://astrocontainers.org/ and https://l6a.org, respectively.
 
 ## Releases
 
-[`eat`][1] tags | `hops` tag
+[`eat`][1] tags | `hops` tag | `eat` tag | `ehtim` tag | `ehtplot` tag
 --- | ---
-`1.6`, `20200130`, `1`, `latest` | `20200130`
+`1.6`, `20200130`, `1`, `latest` | `20200130` | `0cb085aa` | `491dd805` | `7a056749`
 
 In general, although a Docker image is immutable, building a new image
 is not, even with the same Dockerfile.

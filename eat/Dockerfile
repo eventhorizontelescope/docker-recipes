@@ -22,23 +22,23 @@ ARG	ehtplottag=7a056749
 
 FROM	astcon/hops:${srctag}
 
-RUN	laniapt	python3-setuptools python3-pip python3-wheel python3-future \
-		python3-tk python3-pynfft python3-tables python3-pandas \
-		python3-scipy python3-h5py python3-ephem python3-astropy \
-		python3-matplotlib python3-seaborn \
-		python3-skimage python3-sklearn ipython3
+RUN	laniapt	python-setuptools python-pip python-wheel python-future \
+		python-tk python-pynfft python-tables python-pandas \
+		python-scipy python-h5py python-ephem python-astropy \
+		python-matplotlib python-seaborn \
+		python-skimage python-sklearn ipython
 RUN	laniapt time liblist-moreutils-perl parallel
 RUN	laniapt jupyter-notebook jupyter-nbconvert
 COPY	notebook /usr/local/bin/
 
 ARG	ehtplottag
-RUN	pip3 install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz
+RUN	pip install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz
 ARG	ehtimtag
-RUN	pip3 install https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz
+RUN	pip install https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz
 ARG	eattag
-RUN	pip3 install https://github.com/sao-eht/eat/archive/${eattag}.tar.gz
+RUN	pip install https://github.com/sao-eht/eat/archive/${eattag}.tar.gz
 
-CMD	["ipython3"]
+CMD	["ipython"]
 
 # To use Jupyter Notebook, run the following from the host:
 #

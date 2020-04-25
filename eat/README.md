@@ -17,7 +17,7 @@ https://astrocontainers.org/.
 
 ## Releases
 
-[`eat`][1] tags | `ehtpython` tag | `hops` tag | `eat` tag | `ehtim` tag | `ehtplot` tag
+[`ehtcon/eat`][1] tags | `ehtcon/ehtpython` tag | `astcon/hops` tag | `eat` commit ID | `ehtim` commit ID | `ehtplot` commit ID
 --- | --- | --- | --- | --- | ---
 `1.6`, `20200130`, `1`, `latest` | `20200130` | `20200130` | `0cb085aa` | `491dd805` | `7a056749`
 

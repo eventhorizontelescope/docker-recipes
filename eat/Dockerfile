@@ -16,13 +16,39 @@
 
 ARG	dsttag=1.6,20200130,1,latest
 ARG	srctag=20200130
+ARG	hopstag=20200130
 ARG	eattag=0cb085aa
 ARG	ehtimtag=491dd805
 ARG	ehtplottag=7a056749
 
-FROM	astcon/hops:${srctag}
+#==============================================================================
+# The base image: the EHT python2 environment/platform
 
+FROM	ehtcon/python:${srctag} AS base
+
+RUN	sed -n 's/^deb \(.*\) buster main$/deb \1 jessie main non-free/p' \
+		/etc/apt/sources.list > /etc/apt/sources.list.d/jessie.list
+COPY	jessie.pref /etc/apt/preferences.d/
+
+RUN	laniapt	libgfortran5 libquadmath0 ghostscript-x \
+		libfftw3-double3 zlib1g libx11-6 libpng12-0 pgplot5 \
+		csh less
 RUN	laniapt time liblist-moreutils-perl parallel
+
+#==============================================================================
+# The HOPS image
+
+ARG	hopstag
+FROM	astcon/hops:${hopstag} AS builder
+
+#==============================================================================
+# The EAT runtime image
+
+FROM	base
+
+# Copy HOPS from the builder image
+COPY	--from=builder /usr/local/hops /usr/local/hops
+COPY	entrypoint /usr/local/sbin/
 
 ARG	ehtplottag
 RUN	pip install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz

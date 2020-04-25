@@ -1,0 +1,7 @@
+# 100 <= P < 500: causes a version to be installed unless there is a
+# version available belonging to some other distribution or the installed
+# version is more recent
+
+Package: libpng12-0 libpng12-dev pgplot5
+Pin: release a=jessie
+Pin-Priority: 300

@@ -22,14 +22,7 @@ ARG	ehtplottag=7a056749
 
 FROM	astcon/hops:${srctag}
 
-RUN	laniapt	python-setuptools python-pip python-wheel python-future \
-		python-tk python-pynfft python-tables python-pandas \
-		python-scipy python-h5py python-ephem python-astropy \
-		python-matplotlib python-seaborn \
-		python-skimage python-sklearn ipython
 RUN	laniapt time liblist-moreutils-perl parallel
-RUN	laniapt jupyter-notebook jupyter-nbconvert
-COPY	notebook /usr/local/bin/
 
 ARG	ehtplottag
 RUN	pip install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz
@@ -37,13 +30,3 @@ ARG	ehtimtag
 RUN	pip install https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz
 ARG	eattag
 RUN	pip install https://github.com/sao-eht/eat/archive/${eattag}.tar.gz
-
-CMD	["ipython"]
-
-# To use Jupyter Notebook, run the following from the host:
-#
-#	docker run --rm -p8888:8888 -it ehtcon/eat notebook
-#
-# then use a browser to open
-#
-#	http://[localhost or ip of remote machine]:8888?token=1234...

@@ -19,11 +19,19 @@ ARG	srctag=20200130
 FROM	l6acon/lanibase:${srctag} AS base
 
 # Generic science python packages
-RUN	laniapt python-setuptools python-pip python-wheel python-future \
-		python-tk python-pynfft python-tables python-pandas \
-		python-scipy python-h5py python-ephem python-astropy \
-		python-matplotlib python-seaborn \
-		python-skimage python-sklearn ipython
+RUN	laniapt	python-setuptools python-pip python-wheel \
+		python-future python-py python-pytest \
+		python-more-itertools python-pyfftw python-pynfft \
+		python-tables python-pandas python-h5py python-scipy \
+		python-tk python-matplotlib python-seaborn \
+		python-skimage python-sklearn
+
+# Astronomy python packages
+RUN	laniapt python-attr python-pluggy python-atomicwrites python-ephem
+RUN	pip install astropy==2.0.16
+
+# ipython
+RUN	laniapt ipython
 
 # Jupyter notebook
 RUN	laniapt jupyter-notebook jupyter-nbconvert

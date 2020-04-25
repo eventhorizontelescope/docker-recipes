@@ -5,15 +5,15 @@ This Dockerfile builds the [Event Horizon Telescope Analysis Toolkit
 data calibration for the [Event Horizon Telescope
 (EHT)](https://eventhorizontelescope.org/)'s observations.
 
-Because this Docker image is based on AstroContainers, which use
-Project Laniakea, one can simply run this `eat` Docker image as a
+Because AstroContainers are based on AstroContainers, which is based
+on Project Laniakea, one can simply run this Docker image as a
 Laniakea subcommand.
 That is,
 
-    l6a eat [args]
+    l6a ehtcon/eat [args]
 
-Details on using AstroContainers and Laniakea images can be found in
-https://astrocontainers.org/ and https://l6a.org, respectively.
+Details on running AstroContainers images can be found in
+https://astrocontainers.org/.
 
 ## Releases
 
@@ -22,10 +22,10 @@ https://astrocontainers.org/ and https://l6a.org, respectively.
 `1.6`, `20200130`, `1`, `latest` | `20200130` | `20200130` | `0cb085aa` | `491dd805` | `7a056749`
 
 In general, although a Docker image is immutable, building a new image
-is not, even with the same Dockerfile.
+is not even when using the same Dockerfile.
 Nevertheless, by following Project Laniakea's best practices and using
-the Laniakea base image, building an EAT container using this
-Dockerfile should be reproducible.
+the Laniakea base image, building image with this Dockerfile should be
+reproducible.
 Non-reproducibility is considered a bug in Project Laniakea, please
 report non-reproducibility issues to the maintainer.
 

@@ -5,11 +5,12 @@ This Dockerfile builds the [Event Horizon Telescope
 environment/platform for performing data calibration for its
 observations.
 
-Because AstroContainers are based on Project Laniakea, one can simply
-run this HOPS Docker image as a Laniakea subcommand.
+Because AstroContainers are based on AstroContainers, which is based
+on Project Laniakea, one can simply run this Docker image as a
+Laniakea subcommand.
 That is,
 
-    l6a ehtpython [args]
+    l6a ehtcon/ehtpython [args]
 
 Details on running AstroContainers images can be found in
 https://astrocontainers.org/.

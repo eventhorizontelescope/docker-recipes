@@ -24,7 +24,7 @@ ARG	ehtplottag=7a056749
 #==============================================================================
 # The base image: the EHT python2 environment/platform
 
-FROM	ehtcon/python:${srctag} AS base
+FROM	ehtcon/ehtpython:${srctag} AS base
 
 RUN	sed -n 's/^deb \(.*\) buster main$/deb \1 jessie main non-free/p' \
 		/etc/apt/sources.list > /etc/apt/sources.list.d/jessie.list

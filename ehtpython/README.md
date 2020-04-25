@@ -1,4 +1,4 @@
-# `python`
+# `ehtpython`
 
 This Dockerfile builds the [Event Horizon Telescope
 (EHT)](https://eventhorizontelescope.org/)'s legacy `python2`
@@ -9,14 +9,14 @@ Because AstroContainers are based on Project Laniakea, one can simply
 run this HOPS Docker image as a Laniakea subcommand.
 That is,
 
-    l6a python [args]
+    l6a ehtpython [args]
 
 Details on running AstroContainers images can be found in
 https://astrocontainers.org/.
 
 ## Releases
 
-`ehtcon/python` tags | `astcon/astropy` tag
+`ehtcon/ehtpython` tags | `astcon/astropy` tag
 --- | ---
 `2.7`, `20200130`, `2`, `latest` | `20200130`
 

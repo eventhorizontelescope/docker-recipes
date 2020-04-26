@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2017,2020 Chi-kwan Chan
-# Copyright 2017 Center for Astrophysics | Harvard & Smithsonian
+# Copyright 2020 Chi-kwan Chan
 # Copyright 2020 Steward Observatory
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -16,8 +15,4 @@
 # implied.  See the License for the specific language governing
 # permissions and limitations under the License.
 
-if [ -f .jupyter/jupyter_notebook_config.py ]; then
-	jupyter notebook
-else
-	jupyter notebook --allow-root --ip='0.0.0.0' --no-browser
-fi
+python -m "$@"

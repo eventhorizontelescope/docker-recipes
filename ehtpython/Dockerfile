@@ -27,7 +27,7 @@ RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
 RUN	laniapt python-ipaddress \
 		python-jupyter-core python-jupyter-client python-jupyter-console \
 		python-ipykernel python-notebook python-nbformat python-nbconvert
-COPY	notebook /usr/local/bin/
+COPY	jupyter notebook /usr/local/bin/
 
 # To use Jupyter Notebook, run the following from the host:
 #

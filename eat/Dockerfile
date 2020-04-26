@@ -52,11 +52,22 @@ COPY	entrypoint /usr/local/sbin/
 
 # Install EHT python packages directly from GitHub
 ARG	ehtplottag
-RUN	pip install https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz
+RUN	lanisrc https://github.com/liamedeiros/ehtplot/archive/${ehtplottag}.tar.gz \
+		/usr/local/src/ehtplot &&\
+	cd /usr/local/src/ehtplot &&\
+	pip install -e .
+
 ARG	ehtimtag
-RUN	pip install https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz
+RUN	lanisrc https://github.com/achael/eht-imaging/archive/${ehtimtag}.tar.gz \
+		/usr/local/src/eht-imaging &&\
+	cd /usr/local/src/eht-imaging &&\
+	pip install -e .
+
 ARG	eattag
-RUN	pip install https://github.com/sao-eht/eat/archive/${eattag}.tar.gz
+RUN	lanisrc https://github.com/sao-eht/eat/archive/${eattag}.tar.gz \
+		/usr/local/src/eat &&\
+	cd /usr/local/src/eat &&\
+	pip install -e .
 
 # Download IERS data package at build time
 # WARNING: this breaks reproducibility at build time!  But once this

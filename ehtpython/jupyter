@@ -15,4 +15,35 @@
 # implied.  See the License for the specific language governing
 # permissions and limitations under the License.
 
-python -m "$@"
+cmd="$(basename "$0")"
+
+# We consider 3 cases here:
+case "$cmd" in
+	# 1. This script is run by `jupyter [subcmd [args ...]]`.
+	jupyter)
+		sub="$1"
+		shift
+		;;
+	# 2. This script is symlinked and run by `jupyter-subcmd [args ...]`
+	jupyter-*)
+		sub="${cmd#jupyter-}"
+		;;
+	# 3. This script is symlinked and run by `subcmd [args ...]`
+	*)
+		sub="$cmd"
+		;;
+esac
+
+case "$sub" in
+	notebook | nbconvert | console)
+		python -m "$sub" "$@"
+		;;
+	'')
+		echo "No subcommand; do nothing"
+		exit 0
+		;;
+	*)
+		echo "Unknown subcommand \"$sub\"; do nothing"
+		exit 1
+		;;
+esac

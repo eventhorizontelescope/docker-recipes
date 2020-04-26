@@ -19,7 +19,7 @@ ARG	srctag=20200130
 FROM	astcon/astropy:${srctag} AS base
 
 # Generic science python packages
-RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
+RUN	laniapt	python-more-itertools python-requests python-pyfftw python-pynfft \
 		python-pandas python-tables python-h5py python-scipy \
 		python-seaborn python-skimage python-sklearn
 

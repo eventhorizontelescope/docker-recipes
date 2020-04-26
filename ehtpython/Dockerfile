@@ -24,7 +24,8 @@ RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
 		python-seaborn python-skimage python-sklearn
 
 # Jupyter notebook
-RUN	laniapt python-jupyter-core python-jupyter-client python-jupyter-console \
+RUN	laniapt python-ipaddress \
+		python-jupyter-core python-jupyter-client python-jupyter-console \
 		python-ipykernel python-notebook python-nbformat python-nbconvert
 COPY	notebook /usr/local/bin/
 

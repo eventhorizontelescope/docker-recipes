@@ -27,10 +27,10 @@ RUN	laniapt	python-more-itertools python-pyfftw python-pynfft \
 RUN	laniapt python-ipaddress \
 		python-jupyter-core python-jupyter-client python-jupyter-console \
 		python-ipykernel python-notebook python-nbformat python-nbconvert
-COPY	jupyter notebook /usr/local/bin/
-RUN	ln -s jupyter /usr/local/bin/jupyter-notebook &&\
-	ln -s jupyter /usr/local/bin/jupyter-console  &&\
-	ln -s jupyter /usr/local/bin/jupyter-nbconvert
+COPY	jupyter /usr/local/bin/
+RUN	for dst in $(bash -c 'echo {jupyter-,}{notebook,console,nbconvert}'); do \
+		ln -s jupyter "/usr/local/bin/$dst"; \
+	done
 
 # To use Jupyter Notebook, run the following from the host:
 #

@@ -28,6 +28,9 @@ RUN	laniapt python-ipaddress \
 		python-jupyter-core python-jupyter-client python-jupyter-console \
 		python-ipykernel python-notebook python-nbformat python-nbconvert
 COPY	jupyter notebook /usr/local/bin/
+RUN	ln -s jupyter /usr/local/bin/jupyter-notebook &&\
+	ln -s jupyter /usr/local/bin/jupyter-console  &&\
+	ln -s jupyter /usr/local/bin/jupyter-nbconvert
 
 # To use Jupyter Notebook, run the following from the host:
 #

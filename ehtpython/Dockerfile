@@ -13,7 +13,7 @@
 # implied.  See the License for the specific language governing
 # permissions and limitations under the License.
 
-ARG	dsttag=1.6,20200130,1,latest
+ARG	dsttag=2.7,20200130,2,latest
 ARG	srctag=20200130
 
 FROM	astcon/astropy:${srctag} AS base

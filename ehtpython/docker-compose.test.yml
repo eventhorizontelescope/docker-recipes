@@ -1,3 +1,3 @@
 sut:
   build: .
-  command: python -c 'import scipy; print scipy.__version__'
+  command: notebook --version

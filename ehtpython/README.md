@@ -10,7 +10,7 @@ on Project Laniakea, one can simply run this Docker image as a
 Laniakea subcommand.
 That is,
 
-    l6a ehtcon/ehtpython [args]
+    l6a ehtpython [args]
 
 Details on running AstroContainers images can be found in
 https://astrocontainers.org/.

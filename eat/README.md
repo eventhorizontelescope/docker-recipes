@@ -5,9 +5,9 @@ This Dockerfile builds the [Event Horizon Telescope Analysis Toolkit
 data calibration for the [Event Horizon Telescope
 (EHT)](https://eventhorizontelescope.org/)'s observations.
 
-Because AstroContainers are based on AstroContainers, which is based
-on Project Laniakea, one can simply run this Docker image as a
-Laniakea subcommand.
+Because EHT Containers are based on AstroContainers, which is based on
+Project Laniakea, one can simply run this Docker image as a Laniakea
+subcommand.
 That is,
 
     l6a eat [args]

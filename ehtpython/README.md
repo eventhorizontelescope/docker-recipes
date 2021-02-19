@@ -1,13 +1,13 @@
 # `ehtpython`
 
 This Dockerfile builds the [Event Horizon Telescope
-(EHT)](https://eventhorizontelescope.org/)'s legacy `python2`
+(EHT)](https://eventhorizontelescope.org/)'s `python`
 environment/platform for performing data calibration for its
 observations.
 
-Because AstroContainers are based on AstroContainers, which is based
-on Project Laniakea, one can simply run this Docker image as a
-Laniakea subcommand.
+Because EHT Containers are based on AstroContainers, which is based on
+Project Laniakea, one can simply run this Docker image as a Laniakea
+subcommand.
 That is,
 
     l6a ehtpython [args]

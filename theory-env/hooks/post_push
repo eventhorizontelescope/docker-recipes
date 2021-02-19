@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#
+# Copyright 2020 Chi-kwan Chan
+# Copyright 2020 Steward Observatory
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you
+# may not use this file except in compliance with the License.  You
+# may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.  See the License for the specific language governing
+# permissions and limitations under the License.
+
+input=$(echo README*)
+if test ! -f "$input"; then
+	echo "README not found; do nothing"
+	exit 0
+fi
+
+tags=($(sed -n 's/^ARG	dsttag=\(.*\)$/\1/p' Dockerfile | tr ',' '\n'))
+if test "${#tags[@]}" -le 1; then
+	echo "No additional tags were found; do nothing"
+	exit 0
+fi
+
+GIT_TAG="$(basename "$DOCKER_REPO")-$DOCKER_TAG"
+
+echo "DOCKER_REPO: $DOCKER_REPO"
+echo "DOCKER_TAG : $DOCKER_TAG"
+echo "IMAGE_NAME : $IMAGE_NAME"
+echo "GIT_TAG    : $GIT_TAG"
+
+for TAG in "${tags[@]:1}"; do
+	echo "----------------------------------------------------------------"
+	echo "Retag and push \"$DOCKER_REPO:$TAG\""
+	docker tag "$IMAGE_NAME" "$DOCKER_REPO:$TAG"
+	docker push "$DOCKER_REPO:$TAG"
+done
+
+echo "----------------------------------------------------------------"
+echo -n "Trigger GitHub Action to tag dependence children of \"$GIT_TAG\""
+curl -H "Authorization: token $GITHUB_TOKEN"                   \
+     -H "Accept: application/vnd.github.everest-preview+json"  \
+     "https://api.github.com/repos/eventhorizontelescope/docker-recipes/dispatches" \
+     -d "{\"event_type\": \"selftag\", \"client_payload\": {\
+            \"docker_repo\": \"$DOCKER_REPO\",\
+            \"docker_tag\" : \"$DOCKER_TAG\" ,\
+            \"image_name\" : \"$IMAGE_NAME\" ,\
+            \"git_tag\"    : \"$GIT_TAG\"    }}"
+
+echo "----------------------------------------------------------------"
+echo "DONE"

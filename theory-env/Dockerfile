@@ -13,8 +13,8 @@
 # implied.  See the License for the specific language governing
 # permissions and limitations under the License.
 
-ARG	dsttag=
-ARG	srctag=
+ARG	dsttag=latest
+ARG	srctag=20201117
 
 FROM	ehtcon/ehtpython:${srctag} AS base
 

@@ -52,4 +52,4 @@ case "$sub" in
 		;;
 esac
 
-python -m "$sub" "$@"
+python3 -m "$sub" "$@"

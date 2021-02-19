@@ -19,14 +19,13 @@ ARG	srctag=20200130
 FROM	astcon/astropy:${srctag} AS base
 
 # Generic science python packages
-RUN	laniapt	python-more-itertools python-requests python-pyfftw python-pynfft \
-		python-pandas python-tables python-h5py python-scipy \
-		python-seaborn python-skimage python-sklearn
+RUN	laniapt	python3-more-itertools python3-requests python3-pyfftw python3-pynfft \
+		python3-pandas python3-tables python3-h5py python3-scipy \
+		python3-seaborn python3-skimage python3-sklearn
 
 # Jupyter notebook
-RUN	laniapt python-ipaddress \
-		python-jupyter-core python-jupyter-client python-jupyter-console \
-		python-ipykernel python-notebook python-nbformat python-nbconvert
+RUN	laniapt python3-jupyter-core python3-jupyter-client python3-jupyter-console \
+		python3-ipykernel python3-notebook python3-nbformat python3-nbconvert
 COPY	jupyter /usr/local/bin/
 RUN	for dst in $(bash -c 'echo {jupyter-,}{notebook,console,nbconvert}'); do \
 		ln -s jupyter "/usr/local/bin/$dst"; \

@@ -19,7 +19,8 @@ https://astrocontainers.org/.
 
 `ehtcon/ehtpython` tags | `astcon/astropy` tag
 --- | ---
-`2.7.16`, `20200130`, `2.7`, `2`, `latest` | `20200130`
+`3.7.3`, `20201117`, `3.7`, `3`, `latest` | `20201117`
+`2.7.16`,`20200130`, `2.7`, `2`           | `20200130`
 
 In general, although a Docker image is immutable, building a new image
 is not even when using the same Dockerfile.
